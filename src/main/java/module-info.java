@@ -4,6 +4,9 @@ module com.github.jcapitanmoreno {
     requires java.sql;
     requires java.xml.bind;
 
+
     opens com.github.jcapitanmoreno to javafx.fxml;
     exports com.github.jcapitanmoreno;
+    opens com.github.jcapitanmoreno.model.connection to java.xml.bind;
+
 }

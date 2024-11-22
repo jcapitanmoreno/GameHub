@@ -83,6 +83,6 @@ public class ConnectionProperties implements Serializable {
      * @return The URL for the MariaDB database connection.
      */
     public String getURL(){
-        return "jdbc:mariadb://"+server+":"+port+"/"+database;
+        return "jdbc:mysql://"+server+":"+port+"/"+database;
     }
 }
