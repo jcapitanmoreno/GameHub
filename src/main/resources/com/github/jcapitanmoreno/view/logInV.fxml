@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="809.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.LoginController">
+    <children>
+        <!-- Campo de texto para el usuario -->
+        <TextField fx:id="txtUsuario" layoutX="277.0" layoutY="178.0" prefHeight="41.0" prefWidth="255.0" promptText="Usuario" />
+
+        <!-- Campo de contraseña -->
+        <PasswordField fx:id="txtContrasena" layoutX="277.0" layoutY="307.0" prefHeight="41.0" prefWidth="255.0" promptText="Contraseña" />
+
+        <!-- Etiqueta de texto para contraseña -->
+        <Text layoutX="277.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña:" />
+
+        <!-- Etiqueta de texto para usuario -->
+        <Text layoutX="277.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario:" />
+
+        <!-- Título de la pantalla -->
+        <Label layoutX="356.0" layoutY="49.0" text="INICIO DE SESIÓN" />
+
+        <!-- Etiqueta para registrarse -->
+        <Label layoutX="549.0" layoutY="467.0" text="Regístrate aquí:" />
+
+        <!-- Botón para iniciar sesión -->
+        <Button fx:id="btnIniciarSesion" layoutX="435.0" layoutY="373.0" onAction="#handleLogin" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Iniciar Sesión" />
+
+        <!-- Botón para registrarse -->
+        <Button fx:id="btnRegistrarse" layoutX="644.0" layoutY="457.0" onAction="#navigateToSignUp" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Registrarse" />
+    </children>
+</AnchorPane>

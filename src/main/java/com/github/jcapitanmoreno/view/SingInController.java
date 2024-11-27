@@ -1,0 +1,119 @@
+package com.github.jcapitanmoreno.view;
+
+import com.github.jcapitanmoreno.model.dao.UsuariosDAO;
+import com.github.jcapitanmoreno.model.entity.Usuarios;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+public class SingInController {
+    @FXML
+    private TextField usuarioField;
+
+    @FXML
+    private TextField correoField;
+
+    @FXML
+    private PasswordField contrasenaField;
+
+    @FXML
+    private CheckBox isAdminCheckBox;
+
+    @FXML
+    private PasswordField claveAdminField;
+
+    @FXML
+    private Button accederButton;
+
+    @FXML
+    private Button volverButton;
+
+    private static final String CLAVE_ADMIN_VALIDA = "1234"; // Clave fija para administrador
+
+    @FXML
+    public void initialize() {
+        // Deshabilitar campo clave de admin al iniciar
+        claveAdminField.setDisable(true);
+
+        // Añadir un listener al checkbox de administrador
+        isAdminCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            claveAdminField.setDisable(!newValue); // Activar o desactivar clave de admin según el checkbox
+        });
+    }
+
+    @FXML
+    private void handleAccederButton() {
+        String usuario = usuarioField.getText();
+        String correo = correoField.getText();
+        String contrasena = contrasenaField.getText();
+        boolean isAdmin = isAdminCheckBox.isSelected();
+        String claveAdmin = claveAdminField.getText();
+
+        if (usuario.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || (isAdmin && claveAdmin.isEmpty())) {
+            showAlert(Alert.AlertType.WARNING, "Campos Vacíos", "Por favor, completa todos los campos requeridos.");
+            return;
+        }
+
+        if (isAdmin && !claveAdmin.equals(CLAVE_ADMIN_VALIDA)) {
+            showAlert(Alert.AlertType.ERROR, "Clave Incorrecta", "La clave de administrador es incorrecta.");
+            return;
+        }
+
+        Usuarios usuarioNuevo = new Usuarios(0, usuario, contrasena, correo, isAdmin);
+        UsuariosDAO usuariosDAO = new UsuariosDAO();
+
+        try {
+            usuariosDAO.save(usuarioNuevo);
+            showAlert(Alert.AlertType.INFORMATION, "Registro Exitoso", "El usuario se registró correctamente.");
+            navigateToLogIn();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error de Registro", "No se pudo registrar el usuario. Inténtalo nuevamente.");
+        }
+    }
+
+    @FXML
+    private void handleVolverButton() {
+        navigateToLogIn();
+    }
+
+    private void navigateToLogIn() {
+        try {
+            // Cargar la vista de inicio de sesión
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/jcapitanmoreno/view/logIn.fxml"));
+            Parent root = loader.load();
+
+            // Crear una nueva ventana para la vista de inicio de sesión
+            Stage stage = new Stage();
+            stage.setTitle("Inicio de Sesión");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Cerrar la ventana actual
+            closeWindow();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de inicio de sesión.");
+        }
+    }
+
+    private void closeWindow() {
+        Stage stage = (Stage) volverButton.getScene().getWindow();
+        stage.close();
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+}

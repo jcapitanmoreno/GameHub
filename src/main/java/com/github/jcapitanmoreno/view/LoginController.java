@@ -1,13 +1,12 @@
-package com.github.jcapitanmoreno.model.view;
+package com.github.jcapitanmoreno.view;
 
 
-import com.github.jcapitanmoreno.model.connection.ConnectionXamp;
 import com.github.jcapitanmoreno.model.dao.UsuariosDAO;
 import com.github.jcapitanmoreno.model.entity.Usuarios;
 import com.github.jcapitanmoreno.model.singleton.UsuarioSingleton;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -17,12 +16,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController implements Initializable {
 
     @FXML
     private TextField txtUsuario;
@@ -38,12 +36,8 @@ public class LoginController {
 
     private final UsuariosDAO usuariosDAO = new UsuariosDAO();
 
-    @FXML
-    public void initialize() {
-        btnIniciarSesion.setOnAction(event -> handleLogin());
-        btnRegistrarse.setOnAction(event -> navigateToSignUp());
-    }
 
+    @FXML
     private void handleLogin() {
         String username = txtUsuario.getText();
         String password = txtContrasena.getText();
@@ -72,21 +66,16 @@ public class LoginController {
         }
     }
 
+    @FXML
     private void navigateToSignUp() {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/jcapitanmoreno/view/signInV.fxml"));
             Parent root = loader.load();
-
-
             Stage stage = new Stage();
             stage.setTitle("Registro");
             stage.setScene(new Scene(root));
             stage.show();
-
-
             closeWindow();
-
         } catch (IOException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de registro.");
@@ -106,7 +95,8 @@ public class LoginController {
     }
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
-
+    }
 }
