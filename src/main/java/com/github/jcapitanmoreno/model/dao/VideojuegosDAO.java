@@ -23,9 +23,8 @@ public class VideojuegosDAO {
             "JOIN genero g ON v.idGenero = g.id " +
             "JOIN usuarios u ON v.idUsuarios = u.id " +
             "WHERE v.id = ?";
-    private final static String INSERT_FULL =
-            "INSERT INTO videojuegos (nombre, descripcion, enlaceTrailer, idGenero, idUsuarios) VALUES (?, ?, ?, ?, ?);" +
-                    "INSERT INTO disponible (idVideojuego, idPlataforma, fechaLanzamiento) VALUES (LAST_INSERT_ID(), ?, ?)";
+    private final static String INSERT_FULL = "INSERT INTO videojuegos (nombre, descripcion, enlaceTrailer, idGenero, idUsuarios) VALUES (?, ?, ?, ?, ?)";
+    private final static String INSERT_DISPONIBLE = "INSERT INTO disponible (idVideojuego, idPlataforma, fechaLanzamiento) VALUES (?, ?, ?)";
 
 
     public Videojuegos save(Videojuegos videojuego) throws SQLException {
@@ -58,16 +57,34 @@ public class VideojuegosDAO {
         }
         return videojuego;
     }
-    public void saveFull(String nombre, String descripcion,String enlace, Genero idGenero, Usuarios idUsuario, Plataformas idPlataforma, Disponible fechaLanzamiento) throws SQLException {
-        try (PreparedStatement statement = ConnectionXamp.getConnection().prepareStatement(INSERT_FULL)) {
-            statement.setString(1, nombre);
-            statement.setString(2, descripcion);
-            statement.setString(3, enlace);
-            statement.setInt(4, idGenero.getId());
-            statement.setInt(5, idUsuario.getId());
-            statement.setInt(6, idPlataforma.getId());
-            statement.setString(7, String.valueOf(fechaLanzamiento.getFechaLanzamiento()));
-            statement.executeUpdate();
+    public void saveFull(String nombre, String descripcion, String enlace, int idGenero, int idUsuario, int idPlataforma, String fechaLanzamiento) throws SQLException {
+        try (
+
+                PreparedStatement statementVideojuegos = ConnectionXamp.getConnection().prepareStatement(INSERT_FULL, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement statementDisponible = ConnectionXamp.getConnection().prepareStatement(INSERT_DISPONIBLE)
+        ) {
+
+            statementVideojuegos.setString(1, nombre);
+            statementVideojuegos.setString(2, descripcion);
+            statementVideojuegos.setString(3, enlace);
+            statementVideojuegos.setInt(4, idGenero);
+            statementVideojuegos.setInt(5, idUsuario);
+            statementVideojuegos.executeUpdate();
+
+
+            try (ResultSet generatedKeys = statementVideojuegos.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int idVideojuego = generatedKeys.getInt(1);
+
+
+                    statementDisponible.setInt(1, idVideojuego);
+                    statementDisponible.setInt(2, idPlataforma);
+                    statementDisponible.setString(3, fechaLanzamiento);
+                    statementDisponible.executeUpdate();
+                } else {
+                    throw new SQLException("No se pudo obtener el ID generado para el videojuego.");
+                }
+            }
         }
     }
 

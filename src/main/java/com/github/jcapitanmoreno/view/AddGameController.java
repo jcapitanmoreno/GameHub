@@ -2,8 +2,11 @@ package com.github.jcapitanmoreno.view;
 
 import com.github.jcapitanmoreno.model.dao.GeneroDAO;
 import com.github.jcapitanmoreno.model.dao.PlataformaDAO;
+import com.github.jcapitanmoreno.model.dao.VideojuegosDAO;
 import com.github.jcapitanmoreno.model.entity.Genero;
 import com.github.jcapitanmoreno.model.entity.Plataformas;
+import com.github.jcapitanmoreno.model.entity.Usuarios;
+import com.github.jcapitanmoreno.model.singleton.UsuarioSingleton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,6 +34,10 @@ public class AddGameController {
 
     @FXML
     private Button btnAnadir;
+    @FXML
+    private TextField fecha;
+    @FXML
+    private TextField trailer;
 
     GeneroDAO generoDAO = new GeneroDAO();
     PlataformaDAO plataformaDAO = new PlataformaDAO();
@@ -69,16 +76,60 @@ public class AddGameController {
 
     @FXML
     private void handleAnadirJuego() {
+        // Recuperar los datos ingresados en los campos
         String nombre = nombreJuegoField.getText();
         String descripcion = descripcionArea.getText();
-        String genero = generoComboBox.getValue();
-        String plataforma = plataformaComboBox.getValue();
+        String generoNombre = generoComboBox.getValue();
+        String plataformaNombre = plataformaComboBox.getValue();
+        String fechaLanzamiento = fecha.getText();
+        String enlaceTrailer = trailer.getText();
 
-        if (nombre.isEmpty() || descripcion.isEmpty() || genero == null || plataforma == null) {
+        // Validar los datos ingresados
+        if (nombre.isEmpty() || descripcion.isEmpty() || generoNombre == null || plataformaNombre == null || fechaLanzamiento.isEmpty()) {
             System.out.println("Por favor, completa todos los campos.");
             return;
         }
 
-        // aqui tendria que añadir la logica de guardar el videojuego completo (insert en videojuego que guarde esto)
+        // Obtener el usuario logueado desde el Singleton
+        Usuarios usuarioLogueado = UsuarioSingleton.get_Instance().getPlayerLoged();
+        if (usuarioLogueado == null) {
+            System.out.println("Error: No hay un usuario logueado.");
+            return;
+        }
+        int idUsuario = usuarioLogueado.getId(); // Obtener el ID del usuario logueado
+
+        try {
+            // Validar el formato de la fecha (opcional, si se espera un formato específico como "YYYY-MM-DD")
+            if (!fechaLanzamiento.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                System.out.println("Por favor, ingresa una fecha válida en el formato YYYY-MM-DD.");
+                return;
+            }
+
+            // Buscar el ID del género y la plataforma seleccionados
+            int idGenero = generoDAO.findByName(generoNombre).getId();
+            int idPlataforma = plataformaDAO.findByName(plataformaNombre).getId();
+
+            // Llamar al método del DAO para guardar el videojuego con sus detalles
+            VideojuegosDAO videojuegosDAO = new VideojuegosDAO();
+            videojuegosDAO.saveFull(nombre, descripcion, enlaceTrailer, idGenero, idUsuario, idPlataforma, fechaLanzamiento);
+
+            System.out.println("Videojuego añadido exitosamente.");
+
+            // Limpiar los campos después de guardar el videojuego
+            limpiarCampos();
+
+        } catch (SQLException e) {
+            System.err.println("Error al añadir el videojuego: " + e.getMessage());
+        }
+    }
+
+
+    private void limpiarCampos() {
+        nombreJuegoField.clear();
+        descripcionArea.clear();
+        generoComboBox.getSelectionModel().clearSelection();
+        plataformaComboBox.getSelectionModel().clearSelection();
+        fecha.clear();
+        trailer.clear();
     }
 }

@@ -73,9 +73,9 @@ public class PlataformaDAO {
         }
         return plataformas;
     }
-    public Plataformas findByName(int id) throws SQLException {
+    public Plataformas findByName(String id) throws SQLException {
         try (PreparedStatement statement = ConnectionXamp.getConnection().prepareStatement(SELECT_BY_NOMBRE)) {
-            statement.setInt(1, id);
+            statement.setString(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return mapResultSetToPlataformas(resultSet);
