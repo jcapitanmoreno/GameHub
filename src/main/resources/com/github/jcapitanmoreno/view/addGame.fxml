@@ -10,13 +10,19 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="809.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.LoginController">
    <children>
-      <TextField layoutX="351.0" layoutY="101.0" promptText="nombre juego" />
-      <TextArea layoutX="194.0" layoutY="169.0" prefHeight="200.0" prefWidth="478.0" />
-      <ComboBox layoutX="194.0" layoutY="398.0" prefWidth="150.0" promptText="genero" />
-      <ComboBox layoutX="521.0" layoutY="398.0" prefWidth="150.0" promptText="plataforma" />
+      <TextField layoutX="358.0" layoutY="89.0" promptText="nombre juego" />
+      <TextArea layoutX="193.0" layoutY="142.0" prefHeight="200.0" prefWidth="478.0" />
+      <ComboBox layoutX="194.0" layoutY="424.0" prefWidth="150.0" promptText="genero" />
+      <ComboBox layoutX="521.0" layoutY="424.0" prefWidth="150.0" promptText="plataforma" />
       <Label layoutX="365.0" layoutY="31.0" text="añade tu videojuego aqui" />
-      <Button layoutX="623.0" layoutY="453.0" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Añadir" />
-      <Text layoutX="351.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nombre" />
-      <Text layoutX="194.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripcion" />
+      <Button layoutX="671.0" layoutY="472.0" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Añadir" />
+      <Text layoutX="358.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nombre" />
+      <Text layoutX="193.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripcion" />
+      <TextField layoutX="193.0" layoutY="367.0" prefHeight="26.0" prefWidth="478.0" promptText="enlace del trailer" />
+      <TextField layoutX="357.0" layoutY="424.0" promptText="fecha lanzamiento" />
+      <Text layoutX="193.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enlace del trailer" />
+      <Text layoutX="358.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha Lanzamiento" />
+      <Text layoutX="193.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genero" />
+      <Text layoutX="521.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plataforma" />
    </children>
 </AnchorPane>
