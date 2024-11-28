@@ -16,6 +16,7 @@ public class GeneroDAO {
     private final static String DELETE = "DELETE FROM genero WHERE id = ?";
     private final static String SELECT_ALL = "SELECT * FROM genero";
     private final static String SELECT_BY_ID = "SELECT * FROM genero WHERE id = ?";
+    private final static String SELECT_BY_NOMBRE = "SELECT * FROM genero WHERE nombre = ?";
 
     public Genero save(Genero genero) throws SQLException {
         if (genero.getId() == 0) {
@@ -73,6 +74,19 @@ public class GeneroDAO {
         }
         return generos;
     }
+
+    public Genero findByName(int id) throws SQLException {
+        try (PreparedStatement statement = ConnectionXamp.getConnection().prepareStatement(SELECT_BY_NOMBRE)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResultSetToGenero(resultSet);
+                }
+            }
+        }
+        return null;
+    }
+    
     private Genero mapResultSetToGenero(ResultSet resultSet) throws SQLException {
         return new Genero(
                 resultSet.getInt("id"),

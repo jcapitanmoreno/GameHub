@@ -38,12 +38,11 @@ public class SingInController {
 
     @FXML
     public void initialize() {
-        // Deshabilitar campo clave de admin al iniciar
         claveAdminField.setDisable(true);
 
-        // Añadir un listener al checkbox de administrador
+
         isAdminCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            claveAdminField.setDisable(!newValue); // Activar o desactivar clave de admin según el checkbox
+            claveAdminField.setDisable(!newValue);
         });
     }
 
@@ -85,16 +84,13 @@ public class SingInController {
 
     private void navigateToLogIn() {
         try {
-            // Cargar la vista de inicio de sesión
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("logInV.fxml"));
             Parent root = loader.load();
-
-            // Crear una nueva ventana para la vista de inicio de sesión
             Stage stage = new Stage();
             stage.setTitle("Inicio de Sesión");
             stage.setScene(new Scene(root));
             stage.show();
-            // Cerrar la ventana actual
             closeWindow();
 
         } catch (IOException e) {

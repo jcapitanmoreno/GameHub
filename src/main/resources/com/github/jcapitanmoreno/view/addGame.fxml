@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="809.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.LoginController">
+   <children>
+      <TextField layoutX="351.0" layoutY="101.0" promptText="nombre juego" />
+      <TextArea layoutX="194.0" layoutY="169.0" prefHeight="200.0" prefWidth="478.0" />
+      <ComboBox layoutX="194.0" layoutY="398.0" prefWidth="150.0" promptText="genero" />
+      <ComboBox layoutX="521.0" layoutY="398.0" prefWidth="150.0" promptText="plataforma" />
+      <Label layoutX="365.0" layoutY="31.0" text="añade tu videojuego aqui" />
+      <Button layoutX="623.0" layoutY="453.0" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Añadir" />
+      <Text layoutX="351.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nombre" />
+      <Text layoutX="194.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripcion" />
+   </children>
+</AnchorPane>
