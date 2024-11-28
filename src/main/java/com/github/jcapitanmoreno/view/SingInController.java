@@ -94,7 +94,6 @@ public class SingInController {
             stage.setTitle("Inicio de Sesión");
             stage.setScene(new Scene(root));
             stage.show();
-
             // Cerrar la ventana actual
             closeWindow();
 
