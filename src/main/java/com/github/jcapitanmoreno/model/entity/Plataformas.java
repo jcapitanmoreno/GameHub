@@ -4,6 +4,8 @@ public class Plataformas {
     private int id;
     private String nombre;
 
+    private Disponible disponible;
+
     public Plataformas() {
     }
 

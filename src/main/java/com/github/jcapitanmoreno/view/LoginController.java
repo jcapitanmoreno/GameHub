@@ -83,10 +83,10 @@ public class LoginController implements Initializable {
     }
     private void navigateToInicio() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("addGame.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("InicioV.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
-            stage.setTitle("Registro");
+            stage.setTitle("Inicio");
             stage.setScene(new Scene(root));
             stage.show();
             closeWindow();

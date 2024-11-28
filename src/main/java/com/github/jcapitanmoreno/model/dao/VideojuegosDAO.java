@@ -3,10 +3,7 @@ package com.github.jcapitanmoreno.model.dao;
 import com.github.jcapitanmoreno.model.connection.ConnectionXamp;
 import com.github.jcapitanmoreno.model.entity.*;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +22,93 @@ public class VideojuegosDAO {
             "WHERE v.id = ?";
     private final static String INSERT_FULL = "INSERT INTO videojuegos (nombre, descripcion, enlaceTrailer, idGenero, idUsuarios) VALUES (?, ?, ?, ?, ?)";
     private final static String INSERT_DISPONIBLE = "INSERT INTO disponible (idVideojuego, idPlataforma, fechaLanzamiento) VALUES (?, ?, ?)";
+
+    private final static String GET_DATA = "SELECT v.nombre AS titulo," +
+            "g.nombre AS genero, " +
+            "p.nombre AS plataforma, " +
+            "d.fechaLanzamiento AS fecha, " +
+            "u.usuario AS usuario " +
+            "FROM videojuegos v " +
+            "JOIN genero g ON v.idGenero = g.id " +
+            "JOIN usuarios u ON v.idUsuarios = u.id " +
+            "JOIN disponible d ON v.id = d.idVideojuego " +
+            "JOIN plataformas p ON d.idPlataforma = p.id";
+
+    /**public List<Videojuegos> getAllData() throws SQLException {
+        List<Videojuegos> videojuegos = new ArrayList<>();
+        Connection conn = ConnectionXamp.getConnection();
+        System.out.println("entra");
+
+
+        try (PreparedStatement statement = conn.prepareStatement(GET_DATA)) {
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+
+                String titulo = resultSet.getString("titulo");
+                String genero = resultSet.getString("genero");
+                String plataforma = resultSet.getString("plataforma");
+                String fecha = resultSet.getString("fecha");
+                String usuario = resultSet.getString("usuario");
+
+                System.out.println(titulo + "entra");
+
+                Videojuegos videojuego = new Videojuegos();
+                videojuego.setNombre(titulo);
+
+                Genero generoObj = new Genero();
+                generoObj.setNombre(genero);
+
+                Usuarios usuarioObj = new Usuarios();
+                usuarioObj.setUsuario(usuario);
+
+                videojuego.setGenero(generoObj);
+                videojuego.setUsuario(usuarioObj);
+
+                videojuegos.add(videojuego);
+            }
+        }
+        return videojuegos;
+    }*/
+    public List<Videojuegos> getAllData() throws SQLException {
+        List<Videojuegos> videojuegos = new ArrayList<>();
+        Connection conn = ConnectionXamp.getConnection();
+
+        try (PreparedStatement statement = conn.prepareStatement(GET_DATA)) {
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String titulo = resultSet.getString("titulo");
+                String genero = resultSet.getString("genero");
+                String plataforma = resultSet.getString("plataforma");
+                String fecha = resultSet.getString("fecha");
+                String usuario = resultSet.getString("usuario");
+
+                Videojuegos videojuego = new Videojuegos();
+                videojuego.setNombre(titulo);
+
+                Genero generoObj = new Genero();
+                generoObj.setNombre(genero);
+
+                Usuarios usuarioObj = new Usuarios();
+                usuarioObj.setUsuario(usuario);
+
+                Disponible disponible = new Disponible();
+                disponible.setFechaLanzamiento(fecha);
+                // Si `Disponible` tiene una relación con Plataforma, asocia también la plataforma
+                Plataformas plataformaObj = new Plataformas();
+                plataformaObj.setNombre(plataforma);
+                disponible.setPlataforma(plataformaObj);
+
+                videojuego.setGenero(generoObj);
+                videojuego.setUsuario(usuarioObj);
+                videojuego.setDisponible(disponible); // Asignar el objeto Disponible
+
+                videojuegos.add(videojuego);
+            }
+        }
+        return videojuegos;
+    }
 
 
     public Videojuegos save(Videojuegos videojuego) throws SQLException {
@@ -57,6 +141,7 @@ public class VideojuegosDAO {
         }
         return videojuego;
     }
+
     public void saveFull(String nombre, String descripcion, String enlace, int idGenero, int idUsuario, int idPlataforma, String fechaLanzamiento) throws SQLException {
         try (
 
@@ -123,7 +208,7 @@ public class VideojuegosDAO {
         return videojuegos;
     }
 
-    private Videojuegos mapResultSetToVideojuego(ResultSet resultSet) throws SQLException {
+    /**private Videojuegos mapResultSetToVideojuego(ResultSet resultSet) throws SQLException {
         Genero genero = new Genero(
                 resultSet.getInt("idGenero"),
                 resultSet.getString("genero_nombre")
@@ -144,6 +229,37 @@ public class VideojuegosDAO {
                 resultSet.getString("enlaceTrailer"),
                 genero,
                 usuario
+        );
+    }*/
+    private Videojuegos mapResultSetToVideojuego(ResultSet resultSet) throws SQLException {
+        Genero genero = new Genero(
+                resultSet.getInt("idGenero"),
+                resultSet.getString("genero_nombre")
+        );
+
+        Usuarios usuario = new Usuarios(
+                resultSet.getInt("idUsuarios"),
+                resultSet.getString("usuario_nombre"),
+                null,
+                resultSet.getString("usuario_correo"),
+                false
+        );
+
+        Disponible disponible = new Disponible();
+        disponible.setFechaLanzamiento(resultSet.getString("fechaLanzamiento"));
+
+        Plataformas plataforma = new Plataformas();
+        plataforma.setNombre(resultSet.getString("plataforma"));
+        disponible.setPlataforma(plataforma);
+
+        return new Videojuegos(
+                resultSet.getInt("id"),
+                resultSet.getString("nombre"),
+                resultSet.getString("descripcion"),
+                resultSet.getString("enlaceTrailer"),
+                genero,
+                usuario,
+                disponible
         );
     }
 

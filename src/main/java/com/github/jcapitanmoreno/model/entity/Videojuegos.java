@@ -7,17 +7,19 @@ public class Videojuegos {
     private String enlaceTrailer;
     private Genero genero;
     private Usuarios usuario;
+    private Disponible disponible;
 
     public Videojuegos() {
     }
 
-    public Videojuegos(int id, String nombre, String descripcion, String enlaceTrailer, Genero genero, Usuarios usuario) {
+    public Videojuegos(int id, String nombre, String descripcion, String enlaceTrailer, Genero genero, Usuarios usuario,Disponible disponible) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.enlaceTrailer = enlaceTrailer;
         this.genero = genero;
         this.usuario = usuario;
+        this.disponible = disponible;
     }
 
     public int getId() {
@@ -68,6 +70,14 @@ public class Videojuegos {
         this.usuario = usuario;
     }
 
+    public Disponible getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(Disponible disponible) {
+        this.disponible = disponible;
+    }
+
     @Override
     public String toString() {
         return "Videojuegos{" +
@@ -77,6 +87,7 @@ public class Videojuegos {
                 ", enlaceTrailer='" + enlaceTrailer + '\'' +
                 ", genero=" + genero +
                 ", usuario=" + usuario +
+                ", disponible=" + disponible +
                 '}';
     }
 }

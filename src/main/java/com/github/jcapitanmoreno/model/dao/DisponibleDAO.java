@@ -70,7 +70,7 @@ public class DisponibleDAO {
         }
         return disponibles;
     }
-    private Disponible mapResultSetToDisponible(ResultSet resultSet) throws SQLException {
+    /**private Disponible mapResultSetToDisponible(ResultSet resultSet) throws SQLException {
         Videojuegos videojuego = new Videojuegos(
                 resultSet.getInt("videojuego_id"),
                 resultSet.getString("videojuego_nombre"),
@@ -84,6 +84,26 @@ public class DisponibleDAO {
                 resultSet.getInt("plataforma_id"),
                 resultSet.getString("plataforma_nombre")
         );
+
+        return new Disponible(
+                videojuego,
+                plataforma,
+                resultSet.getString("fechaLanzamiento")
+        );
+    }*/
+    private Disponible mapResultSetToDisponible(ResultSet resultSet) throws SQLException {
+
+        Videojuegos videojuego = new Videojuegos();
+        videojuego.setId(resultSet.getInt("videojuego_id"));
+        videojuego.setNombre(resultSet.getString("videojuego_nombre"));
+        videojuego.setDescripcion(resultSet.getString("videojuego_descripcion"));
+        videojuego.setEnlaceTrailer(resultSet.getString("enlaceTrailer"));
+
+
+
+        Plataformas plataforma = new Plataformas();
+        plataforma.setId(resultSet.getInt("plataforma_id"));
+        plataforma.setNombre(resultSet.getString("plataforma_nombre"));
 
         return new Disponible(
                 videojuego,
