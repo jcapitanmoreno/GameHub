@@ -86,7 +86,7 @@ public class SingInController {
     private void navigateToLogIn() {
         try {
             // Cargar la vista de inicio de sesión
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/jcapitanmoreno/view/logIn.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("logInV.fxml"));
             Parent root = loader.load();
 
             // Crear una nueva ventana para la vista de inicio de sesión

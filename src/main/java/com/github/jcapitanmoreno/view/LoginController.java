@@ -69,7 +69,7 @@ public class LoginController implements Initializable {
     @FXML
     private void navigateToSignUp() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/jcapitanmoreno/view/signInV.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("singInV.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Registro");
