@@ -8,28 +8,23 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="882.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="882.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.InicioAdmController">
    <children>
-      <TableView layoutX="141.0" layoutY="115.0" prefHeight="358.0" prefWidth="598.0">
+      <TableView fx:id="videojuegosTable" layoutX="134.0" layoutY="115.0" prefHeight="358.0" prefWidth="598.0">
         <columns>
-          <TableColumn prefWidth="111.20001220703125" text="Titulo" />
-            <TableColumn prefWidth="114.39994812011719" text="Genero" />
-            <TableColumn prefWidth="139.99993896484375" text="Plataforma" />
-            <TableColumn prefWidth="120.79998779296875" text="Fecha" />
-            <TableColumn prefWidth="110.39996337890625" text="Usuario" />
+          <TableColumn fx:id="tituloColumn" prefWidth="111.20001220703125" text="Titulo" />
+            <TableColumn fx:id="generoColumn" prefWidth="114.39994812011719" text="Genero" />
+            <TableColumn fx:id="plataformaColumn" prefWidth="139.99993896484375" text="Plataforma" />
+            <TableColumn fx:id="fechaColumn" prefWidth="120.79998779296875" text="Fecha" />
+            <TableColumn fx:id="usuarioColumn" prefWidth="110.39996337890625" text="Usuario" />
         </columns>
       </TableView>
-      <Button layoutX="710.0" layoutY="504.0" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Añadir juego" />
-      <Button layoutX="92.0" layoutY="504.0" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Volver" />
-      <ImageView fitHeight="129.0" fitWidth="109.0" layoutX="759.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@IMG/SolarUserCircleBold.png" />
-         </image>
-      </ImageView>
+      <Button fx:id="btnAnadir" layoutX="710.0" layoutY="504.0" onAction="#navigateToAdd" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Añadir juego" />
+      <Button fx:id="btnVolver" layoutX="92.0" layoutY="504.0" onAction="#navigateToLogIn" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Volver" />
       <Label layoutX="425.0" layoutY="55.0" prefHeight="26.0" prefWidth="31.0" text="inicio" />
-      <Button layoutX="301.0" layoutY="504.0" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Añadir genero" />
-      <Button layoutX="508.0" layoutY="504.0" prefHeight="38.0" prefWidth="118.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Añadir plataforma" />
-      <ImageView fitHeight="109.0" fitWidth="118.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="btnAddGenero" layoutX="301.0" layoutY="504.0" onAction="#navigateToAddGenero" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Añadir genero" />
+      <Button fx:id="btnAddPlataforma" layoutX="508.0" layoutY="504.0" onAction="#navigateToAddPlataforma" prefHeight="38.0" prefWidth="118.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Añadir plataforma" />
+      <ImageView fitHeight="83.0" fitWidth="86.0" layoutX="24.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@IMG/EpDelete.png" />
          </image>

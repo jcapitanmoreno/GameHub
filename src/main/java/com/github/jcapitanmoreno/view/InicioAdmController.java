@@ -1,7 +1,6 @@
 package com.github.jcapitanmoreno.view;
 
 import com.github.jcapitanmoreno.model.dao.VideojuegosDAO;
-import com.github.jcapitanmoreno.model.entity.Disponible;
 import com.github.jcapitanmoreno.model.entity.Videojuegos;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -11,8 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -22,7 +23,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class InicioController extends Controller implements Initializable {
+public class InicioAdmController extends Controller implements Initializable {
 
     @FXML
     private TableView<Videojuegos> videojuegosTable;
@@ -49,10 +50,13 @@ public class InicioController extends Controller implements Initializable {
     private Button btnVolver;
 
     @FXML
-    private ImageView userImageView;
+    private Button btnAddGenero;
+
+    @FXML
+    private Button btnAddPlataforma;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL location, ResourceBundle resources) {
         VideojuegosDAO videojuegosDAO = new VideojuegosDAO();
         List<Videojuegos> inicioVideojuegos;
         try {
@@ -101,6 +105,7 @@ public class InicioController extends Controller implements Initializable {
 
 
         });
+
     }
 
     @FXML
@@ -133,6 +138,37 @@ public class InicioController extends Controller implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
         }
     }
+    @FXML
+    private void navigateToAddGenero(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("addGenero.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("añadir videojuego");
+            stage.setScene(new Scene(root));
+            stage.show();
+            closeWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de añadir videojuego.");
+        }
+    }
+
+    @FXML
+    private void navigateToAddPlataforma(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("addPlataforma.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("LogIn");
+            stage.setScene(new Scene(root));
+            stage.show();
+            closeWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
+        }
+    }
 
     private void closeWindow() {
         Stage stage = (Stage) btnAnadir.getScene().getWindow();
@@ -147,9 +183,8 @@ public class InicioController extends Controller implements Initializable {
     }
 
 
-
     @Override
-    public void onOpen(Object input) {
+    public void onOpen(Object input) throws IOException {
 
     }
 
@@ -172,5 +207,6 @@ public class InicioController extends Controller implements Initializable {
     public void warningAlert(String text1, String text2, String text3) {
 
     }
+
 
 }

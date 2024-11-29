@@ -10,11 +10,13 @@ import com.github.jcapitanmoreno.model.singleton.UsuarioSingleton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -38,6 +40,8 @@ public class AddGameController {
     private TextField fecha;
     @FXML
     private TextField trailer;
+    @FXML
+    private Button btnAtras;
 
     GeneroDAO generoDAO = new GeneroDAO();
     PlataformaDAO plataformaDAO = new PlataformaDAO();
@@ -76,7 +80,6 @@ public class AddGameController {
 
     @FXML
     private void handleAnadirJuego() {
-        // Recuperar los datos ingresados en los campos
         String nombre = nombreJuegoField.getText();
         String descripcion = descripcionArea.getText();
         String generoNombre = generoComboBox.getValue();
@@ -84,38 +87,31 @@ public class AddGameController {
         String fechaLanzamiento = fecha.getText();
         String enlaceTrailer = trailer.getText();
 
-        // Validar los datos ingresados
         if (nombre.isEmpty() || descripcion.isEmpty() || generoNombre == null || plataformaNombre == null || fechaLanzamiento.isEmpty()) {
             System.out.println("Por favor, completa todos los campos.");
             return;
         }
 
-        // Obtener el usuario logueado desde el Singleton
         Usuarios usuarioLogueado = UsuarioSingleton.get_Instance().getPlayerLoged();
         if (usuarioLogueado == null) {
             System.out.println("Error: No hay un usuario logueado.");
             return;
         }
-        int idUsuario = usuarioLogueado.getId(); // Obtener el ID del usuario logueado
+        int idUsuario = usuarioLogueado.getId();
 
         try {
-            // Validar el formato de la fecha (opcional, si se espera un formato específico como "YYYY-MM-DD")
-            if (!fechaLanzamiento.matches("\\d{4}-\\d{2}-\\d{2}")) {
-                System.out.println("Por favor, ingresa una fecha válida en el formato YYYY-MM-DD.");
+            if (!fechaLanzamiento.matches("\\d{2}-\\d{2}-\\d{4}")) {
+                System.out.println("Por favor, ingresa una fecha válida en el formato DD-MM-AAAA.");
                 return;
             }
 
-            // Buscar el ID del género y la plataforma seleccionados
             int idGenero = generoDAO.findByName(generoNombre).getId();
             int idPlataforma = plataformaDAO.findByName(plataformaNombre).getId();
 
-            // Llamar al método del DAO para guardar el videojuego con sus detalles
             VideojuegosDAO videojuegosDAO = new VideojuegosDAO();
             videojuegosDAO.saveFull(nombre, descripcion, enlaceTrailer, idGenero, idUsuario, idPlataforma, fechaLanzamiento);
+            System.out.println("Videojuego añadido exitosamente."); //cambiar por memsaje de alerta
 
-            System.out.println("Videojuego añadido exitosamente.");
-
-            // Limpiar los campos después de guardar el videojuego
             limpiarCampos();
 
         } catch (SQLException e) {
@@ -131,5 +127,56 @@ public class AddGameController {
         plataformaComboBox.getSelectionModel().clearSelection();
         fecha.clear();
         trailer.clear();
+    }
+    @FXML
+    private void navegacionCondicional(){
+        UsuarioSingleton usuarioSingleton = new UsuarioSingleton();
+        if (usuarioSingleton.getPlayerLoged().isAdmin()){
+            navigateToInicioAdm();
+        }else {
+            navigateToInicio();
+        }
+    }
+
+
+    private void navigateToInicio(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("inicioV.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("LogIn");
+            stage.setScene(new Scene(root));
+            stage.show();
+            closeWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
+        }
+    }
+    private void navigateToInicioAdm(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("inicioADMV.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("LogIn");
+            stage.setScene(new Scene(root));
+            stage.show();
+            closeWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
+        }
+    }
+
+    private void closeWindow() {
+        Stage stage = (Stage) btnAnadir.getScene().getWindow();
+        stage.close();
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

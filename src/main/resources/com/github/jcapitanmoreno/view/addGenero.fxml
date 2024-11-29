@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="809.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.AddGeneroController">
+   <children>
+      <TextField fx:id="txtGenero" layoutX="314.0" layoutY="82.0" prefHeight="38.0" prefWidth="150.0" promptText="nombre genero" />
+      <Label layoutX="305.0" layoutY="33.0" text="añade tu genero de videojuegos aqui" />
+      <Button fx:id="btnAdd" layoutX="493.0" layoutY="82.0" onAction="#addGenero" prefHeight="0.0" prefWidth="98.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Añadir" />
+      <Text layoutX="324.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nombre" />
+      <Button fx:id="btnVolver" layoutX="51.0" layoutY="472.0" onAction="#navigateToInicioAdm" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Volver" />
+      <TableView fx:id="tblGenero" layoutX="39.0" layoutY="144.0" prefHeight="310.0" prefWidth="719.0">
+        <columns>
+          <TableColumn fx:id="colGeneroId" prefWidth="114.0" text="ID" />
+          <TableColumn fx:id="colGenero" prefWidth="605.0" text="TIPO" />
+        </columns>
+      </TableView>
+      <ImageView fx:id="imgDeleteGenero" fitHeight="83.0" fitWidth="86.0" layoutX="39.0" layoutY="41.0" onMouseClicked="#deleteGenero" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@IMG/EpDelete.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

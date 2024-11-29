@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="809.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.AddGameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="809.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.AddGameController">
    <children>
       <TextField fx:id="nombreJuegoField" layoutX="358.0" layoutY="89.0" promptText="nombre juego" />
       <TextArea fx:id="descripcionArea" layoutX="193.0" layoutY="142.0" prefHeight="200.0" prefWidth="478.0" />
@@ -24,5 +24,6 @@
       <Text layoutX="358.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha Lanzamiento" />
       <Text layoutX="193.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genero" />
       <Text layoutX="521.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plataforma" />
+      <Button fx:id="btnAtras" layoutX="51.0" layoutY="472.0" onAction="#navegacionCondicional" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Volver" />
    </children>
 </AnchorPane>

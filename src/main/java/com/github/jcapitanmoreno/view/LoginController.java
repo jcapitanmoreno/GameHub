@@ -34,7 +34,8 @@ public class LoginController implements Initializable {
     @FXML
     private Button btnRegistrarse;
 
-    private final UsuariosDAO usuariosDAO = new UsuariosDAO();
+    UsuariosDAO usuariosDAO = new UsuariosDAO();
+    UsuarioSingleton usuarioSingleton = new UsuarioSingleton();
 
 
     @FXML
@@ -56,7 +57,12 @@ public class LoginController implements Initializable {
             if (usuario != null) {
                 UsuarioSingleton.get_Instance().login(usuario);
                 showAlert(Alert.AlertType.INFORMATION, "Inicio de Sesión", "Inicio de sesión exitoso.");
-                navigateToInicio();
+                if (usuarioSingleton.getPlayerLoged().isAdmin()){
+                     navigateToInicioAdm();
+                }else {
+                    navigateToInicio();
+                }
+
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Usuario o contraseña incorrectos.");
             }
@@ -92,7 +98,22 @@ public class LoginController implements Initializable {
             closeWindow();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de registro.");
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
+        }
+    }
+
+    private void navigateToInicioAdm() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("InicioADMV.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Inicio Administrador");
+            stage.setScene(new Scene(root));
+            stage.show();
+            closeWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
         }
     }
 

@@ -95,14 +95,13 @@ public class VideojuegosDAO {
 
                 Disponible disponible = new Disponible();
                 disponible.setFechaLanzamiento(fecha);
-                // Si `Disponible` tiene una relación con Plataforma, asocia también la plataforma
                 Plataformas plataformaObj = new Plataformas();
                 plataformaObj.setNombre(plataforma);
                 disponible.setPlataforma(plataformaObj);
 
                 videojuego.setGenero(generoObj);
                 videojuego.setUsuario(usuarioObj);
-                videojuego.setDisponible(disponible); // Asignar el objeto Disponible
+                videojuego.setDisponible(disponible);
 
                 videojuegos.add(videojuego);
             }
