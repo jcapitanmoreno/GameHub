@@ -1,15 +1,17 @@
 package com.github.jcapitanmoreno.model.entity;
 
+import java.util.ArrayList;
+
 public class Disponible {
     private Videojuegos videojuego;
-    private Plataformas plataforma;
+    private ArrayList<Plataformas>  plataforma;
     private String fechaLanzamiento;
 
 
     public Disponible() {
     }
 
-    public Disponible(Videojuegos videojuego, Plataformas plataforma, String fechaLanzamiento) {
+    public Disponible(Videojuegos videojuego, ArrayList<Plataformas> plataforma, String fechaLanzamiento) {
         this.videojuego = videojuego;
         this.plataforma = plataforma;
         this.fechaLanzamiento = fechaLanzamiento;
@@ -23,11 +25,11 @@ public class Disponible {
         this.videojuego = videojuego;
     }
 
-    public Plataformas getPlataforma() {
+    public ArrayList<Plataformas> getPlataforma() {
         return plataforma;
     }
 
-    public void setPlataforma(Plataformas plataforma) {
+    public void setPlataforma(ArrayList<Plataformas> plataforma) {
         this.plataforma = plataforma;
     }
 

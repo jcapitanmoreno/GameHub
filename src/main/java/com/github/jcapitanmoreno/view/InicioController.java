@@ -2,6 +2,7 @@ package com.github.jcapitanmoreno.view;
 
 import com.github.jcapitanmoreno.model.dao.VideojuegosDAO;
 import com.github.jcapitanmoreno.model.entity.Disponible;
+import com.github.jcapitanmoreno.model.entity.Plataformas;
 import com.github.jcapitanmoreno.model.entity.Videojuegos;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class InicioController extends Controller implements Initializable {
 
@@ -81,7 +83,10 @@ public class InicioController extends Controller implements Initializable {
         });
         plataformaColumn.setCellValueFactory(cellData -> {
             Videojuegos videojuegos = cellData.getValue();
-            String name = videojuegos.getDisponible().getPlataforma().getNombre();
+            String name = videojuegos.getDisponible().getPlataforma()
+                    .stream()
+                    .map(Plataformas::getNombre)
+                    .collect(Collectors.joining(", "));
             return new SimpleStringProperty(name);
 
 

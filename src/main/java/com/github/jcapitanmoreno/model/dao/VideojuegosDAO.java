@@ -34,42 +34,6 @@ public class VideojuegosDAO {
             "JOIN disponible d ON v.id = d.idVideojuego " +
             "JOIN plataformas p ON d.idPlataforma = p.id";
 
-    /**public List<Videojuegos> getAllData() throws SQLException {
-        List<Videojuegos> videojuegos = new ArrayList<>();
-        Connection conn = ConnectionXamp.getConnection();
-        System.out.println("entra");
-
-
-        try (PreparedStatement statement = conn.prepareStatement(GET_DATA)) {
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-
-                String titulo = resultSet.getString("titulo");
-                String genero = resultSet.getString("genero");
-                String plataforma = resultSet.getString("plataforma");
-                String fecha = resultSet.getString("fecha");
-                String usuario = resultSet.getString("usuario");
-
-                System.out.println(titulo + "entra");
-
-                Videojuegos videojuego = new Videojuegos();
-                videojuego.setNombre(titulo);
-
-                Genero generoObj = new Genero();
-                generoObj.setNombre(genero);
-
-                Usuarios usuarioObj = new Usuarios();
-                usuarioObj.setUsuario(usuario);
-
-                videojuego.setGenero(generoObj);
-                videojuego.setUsuario(usuarioObj);
-
-                videojuegos.add(videojuego);
-            }
-        }
-        return videojuegos;
-    }*/
     public List<Videojuegos> getAllData() throws SQLException {
         List<Videojuegos> videojuegos = new ArrayList<>();
         Connection conn = ConnectionXamp.getConnection();
@@ -93,11 +57,14 @@ public class VideojuegosDAO {
                 Usuarios usuarioObj = new Usuarios();
                 usuarioObj.setUsuario(usuario);
 
+
                 Disponible disponible = new Disponible();
                 disponible.setFechaLanzamiento(fecha);
+                ArrayList<Plataformas> plataformas = new ArrayList<>();
                 Plataformas plataformaObj = new Plataformas();
                 plataformaObj.setNombre(plataforma);
-                disponible.setPlataforma(plataformaObj);
+                plataformas.add(plataformaObj);
+                disponible.setPlataforma(plataformas);
 
                 videojuego.setGenero(generoObj);
                 videojuego.setUsuario(usuarioObj);
@@ -207,29 +174,7 @@ public class VideojuegosDAO {
         return videojuegos;
     }
 
-    /**private Videojuegos mapResultSetToVideojuego(ResultSet resultSet) throws SQLException {
-        Genero genero = new Genero(
-                resultSet.getInt("idGenero"),
-                resultSet.getString("genero_nombre")
-        );
 
-        Usuarios usuario = new Usuarios(
-                resultSet.getInt("idUsuarios"),
-                resultSet.getString("usuario_nombre"),
-                null,
-                resultSet.getString("usuario_correo"),
-                false // Este campo se debe manejar para saber si es admin o no
-        );
-
-        return new Videojuegos(
-                resultSet.getInt("id"),
-                resultSet.getString("nombre"),
-                resultSet.getString("descripcion"),
-                resultSet.getString("enlaceTrailer"),
-                genero,
-                usuario
-        );
-    }*/
     private Videojuegos mapResultSetToVideojuego(ResultSet resultSet) throws SQLException {
         Genero genero = new Genero(
                 resultSet.getInt("idGenero"),
@@ -247,9 +192,11 @@ public class VideojuegosDAO {
         Disponible disponible = new Disponible();
         disponible.setFechaLanzamiento(resultSet.getString("fechaLanzamiento"));
 
+        ArrayList<Plataformas> plataformas = new ArrayList<>();
         Plataformas plataforma = new Plataformas();
         plataforma.setNombre(resultSet.getString("plataforma"));
-        disponible.setPlataforma(plataforma);
+        plataformas.add(plataforma);
+        disponible.setPlataforma(plataformas);
 
         return new Videojuegos(
                 resultSet.getInt("id"),

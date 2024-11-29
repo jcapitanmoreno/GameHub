@@ -1,6 +1,7 @@
 package com.github.jcapitanmoreno.view;
 
 import com.github.jcapitanmoreno.model.dao.VideojuegosDAO;
+import com.github.jcapitanmoreno.model.entity.Plataformas;
 import com.github.jcapitanmoreno.model.entity.Videojuegos;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -22,6 +23,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class InicioAdmController extends Controller implements Initializable {
 
@@ -54,6 +56,8 @@ public class InicioAdmController extends Controller implements Initializable {
 
     @FXML
     private Button btnAddPlataforma;
+    @FXML
+    private ImageView imgDeleteVideojuego;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -85,10 +89,11 @@ public class InicioAdmController extends Controller implements Initializable {
         });
         plataformaColumn.setCellValueFactory(cellData -> {
             Videojuegos videojuegos = cellData.getValue();
-            String name = videojuegos.getDisponible().getPlataforma().getNombre();
+            String name = videojuegos.getDisponible().getPlataforma()
+                    .stream()
+                    .map(Plataformas::getNombre)
+                    .collect(Collectors.joining(", "));
             return new SimpleStringProperty(name);
-
-
         });
 
         fechaColumn.setCellValueFactory(cellData -> {
@@ -157,7 +162,7 @@ public class InicioAdmController extends Controller implements Initializable {
     @FXML
     private void navigateToAddPlataforma(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("addPlataforma.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("addPlataform.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("LogIn");
@@ -182,6 +187,26 @@ public class InicioAdmController extends Controller implements Initializable {
         alert.showAndWait();
     }
 
+    @FXML
+    private void deleteSelectedVideojuego() {
+        // Obtener el videojuego seleccionado
+        Videojuegos selectedVideojuego = videojuegosTable.getSelectionModel().getSelectedItem();
+        if (selectedVideojuego != null) {
+            try {
+
+                VideojuegosDAO videojuegosDAO = new VideojuegosDAO();
+                videojuegosDAO.delete(selectedVideojuego);
+
+                videojuegosTable.getItems().remove(selectedVideojuego);
+                showAlert(Alert.AlertType.INFORMATION, "Éxito", "El videojuego se eliminó correctamente.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error", "No se pudo eliminar el videojuego.");
+            }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Advertencia", "Seleccione un videojuego para eliminar.");
+        }
+    }
 
     @Override
     public void onOpen(Object input) throws IOException {

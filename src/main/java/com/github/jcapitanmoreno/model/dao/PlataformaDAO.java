@@ -19,7 +19,7 @@ public class PlataformaDAO {
     private final static String SELECT_BY_ID = "SELECT * FROM plataformas WHERE id = ?";
     private final static String SELECT_BY_NOMBRE = "SELECT * FROM plataformas WHERE nombre = ?";
 
-    public Plataformas save(Plataformas plataforma) throws SQLException {
+    public static Plataformas save(Plataformas plataforma) throws SQLException {
         if (plataforma.getId() == 0) {
             try (PreparedStatement statement = ConnectionXamp.getConnection().prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, plataforma.getNombre());
@@ -41,7 +41,7 @@ public class PlataformaDAO {
         return plataforma;
     }
 
-    public Plataformas delete(Plataformas plataforma) throws SQLException {
+    public static Plataformas delete(Plataformas plataforma) throws SQLException {
         if (plataforma == null || plataforma.getId() == 0) {
             plataforma = null;
         } else {
