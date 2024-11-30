@@ -201,7 +201,7 @@ public class InicioAdmController extends Controller implements Initializable {
 
     @FXML
     private void deleteSelectedVideojuego() {
-        // Obtener el videojuego seleccionado
+
         Videojuegos selectedVideojuego = videojuegosTable.getSelectionModel().getSelectedItem();
         if (selectedVideojuego != null) {
             try {
@@ -222,19 +222,17 @@ public class InicioAdmController extends Controller implements Initializable {
 
     private void openDetailsModal(Videojuegos videojuego) {
         try {
-            // Cargar la vista de detalles
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("videojuegoDetails.fxml"));
             Parent root = loader.load();
 
-            // Obtener el controlador y pasar el videojuego seleccionado
             VideojuegoDetailsController controller = loader.getController();
-            controller.setVideojuego(videojuego); // Pasar los datos al controlador
+            controller.setVideojuego(videojuego);
 
-            // Crear una ventana modal
             Stage stage = new Stage();
             stage.setTitle("Detalles del Videojuego");
             stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL); // Ventana modal
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
