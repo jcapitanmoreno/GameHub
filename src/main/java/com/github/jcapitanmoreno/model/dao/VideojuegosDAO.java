@@ -11,19 +11,21 @@ public class VideojuegosDAO {
     private final static String INSERT = "INSERT INTO videojuegos (nombre, descripcion, enlaceTrailer, idGenero, idUsuarios) VALUES (?, ?, ?, ?, ?)";
     private final static String UPDATE = "UPDATE videojuegos SET nombre = ?, descripcion = ?, enlaceTrailer = ?, idGenero = ?, idUsuarios = ? WHERE id = ?";
     private final static String DELETE = "DELETE FROM videojuegos WHERE id = ?";
-    private final static String SELECT_ALL = "SELECT v.*, g.nombre AS genero_nombre, u.usuario AS usuario_nombre, u.correo AS usuario_correo " +
-            "FROM videojuegos v " +
-            "JOIN genero g ON v.idGenero = g.id " +
+    private final static String SELECT_ALL = "SELECT v.id, v.nombre, v.descripcion, v.enlaceTrailer, g.nombre AS genero_nombre," +
+            "u.usuario AS usuario_nombre, u.correo AS usuario_correo " +
+            "FROM videojuegos v" +
+            "JOIN genero g ON v.idGenero = g.id" +
             "JOIN usuarios u ON v.idUsuarios = u.id";
-    private final static String SELECT_BY_ID = "SELECT v.*, g.nombre AS genero_nombre, u.usuario AS usuario_nombre, u.correo AS usuario_correo " +
-            "FROM videojuegos v " +
-            "JOIN genero g ON v.idGenero = g.id " +
+    private final static String SELECT_BY_ID = "SELECT v.id, v.nombre, v.descripcion, v.enlaceTrailer, g.nombre AS genero_nombre, \n" +
+            "       u.usuario AS usuario_nombre, u.correo AS usuario_correo " +
+            "FROM videojuegos v" +
+            "JOIN genero g ON v.idGenero = g.id" +
             "JOIN usuarios u ON v.idUsuarios = u.id " +
             "WHERE v.id = ?";
     private final static String INSERT_FULL = "INSERT INTO videojuegos (nombre, descripcion, enlaceTrailer, idGenero, idUsuarios) VALUES (?, ?, ?, ?, ?)";
     private final static String INSERT_DISPONIBLE = "INSERT INTO disponible (idVideojuego, idPlataforma, fechaLanzamiento) VALUES (?, ?, ?)";
 
-    private final static String GET_DATA = "SELECT v.nombre AS titulo," +
+    private final static String GET_DATA = "SELECT v.nombre AS titulo, v.descripcion AS descripcion, " +
             "g.nombre AS genero, " +
             "p.nombre AS plataforma, " +
             "d.fechaLanzamiento AS fecha, " +
@@ -47,9 +49,11 @@ public class VideojuegosDAO {
                 String plataforma = resultSet.getString("plataforma");
                 String fecha = resultSet.getString("fecha");
                 String usuario = resultSet.getString("usuario");
+                String descripcion = resultSet.getString("descripcion");
 
                 Videojuegos videojuego = new Videojuegos();
                 videojuego.setNombre(titulo);
+                videojuego.setDescripcion(descripcion);
 
                 Genero generoObj = new Genero();
                 generoObj.setNombre(genero);

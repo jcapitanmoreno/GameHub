@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -109,6 +110,17 @@ public class InicioAdmController extends Controller implements Initializable {
             return new SimpleStringProperty(name);
 
 
+        });
+
+
+
+        videojuegosTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) { // Detectar doble clic
+                Videojuegos selectedVideojuego = videojuegosTable.getSelectionModel().getSelectedItem();
+                if (selectedVideojuego != null) {
+                    openDetailsModal(selectedVideojuego); // Llamar al método que abre la ventana modal
+                }
+            }
         });
 
     }
@@ -205,6 +217,28 @@ public class InicioAdmController extends Controller implements Initializable {
             }
         } else {
             showAlert(Alert.AlertType.WARNING, "Advertencia", "Seleccione un videojuego para eliminar.");
+        }
+    }
+
+    private void openDetailsModal(Videojuegos videojuego) {
+        try {
+            // Cargar la vista de detalles
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("videojuegoDetails.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador y pasar el videojuego seleccionado
+            VideojuegoDetailsController controller = loader.getController();
+            controller.setVideojuego(videojuego); // Pasar los datos al controlador
+
+            // Crear una ventana modal
+            Stage stage = new Stage();
+            stage.setTitle("Detalles del Videojuego");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL); // Ventana modal
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de detalles.");
         }
     }
 
