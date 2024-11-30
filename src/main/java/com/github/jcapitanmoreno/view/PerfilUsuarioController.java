@@ -1,7 +1,6 @@
 package com.github.jcapitanmoreno.view;
 
 import com.github.jcapitanmoreno.model.dao.VideojuegosDAO;
-import com.github.jcapitanmoreno.model.entity.Disponible;
 import com.github.jcapitanmoreno.model.entity.Plataformas;
 import com.github.jcapitanmoreno.model.entity.Usuarios;
 import com.github.jcapitanmoreno.model.entity.Videojuegos;
@@ -15,8 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -27,8 +24,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class InicioController extends Controller implements Initializable {
-
+public class PerfilUsuarioController extends Controller implements Initializable {
     @FXML
     private TableView<Videojuegos> videojuegosTable;
 
@@ -48,20 +44,29 @@ public class InicioController extends Controller implements Initializable {
     private TableColumn<Videojuegos, String> usuarioColumn;
 
     @FXML
-    private Button btnAnadir;
-
-    @FXML
     private Button btnVolver;
 
     @FXML
-    private ImageView userImageView;
+    private Label lblUsuario;
+
+    @FXML
+    private Label lblCorreo;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Usuarios usuarioLogueado = UsuarioSingleton.get_Instance().getPlayerLoged();
+
+        if (usuarioLogueado != null) {
+
+            lblUsuario.setText(UsuarioSingleton.get_Instance().getPlayerLoged().getUsuario());
+            lblCorreo.setText(UsuarioSingleton.get_Instance().getPlayerLoged().getCorreo());
+        }
+
+
         VideojuegosDAO videojuegosDAO = new VideojuegosDAO();
         List<Videojuegos> inicioVideojuegos;
         try {
-            inicioVideojuegos = videojuegosDAO.getAllData();
+            inicioVideojuegos = videojuegosDAO.getDataByUser();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -118,43 +123,12 @@ public class InicioController extends Controller implements Initializable {
                 }
             }
         });
-    }
 
-    @FXML
-    private void navigateToAdd() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("addGame.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("añadir videojuego");
-            stage.setScene(new Scene(root));
-            stage.show();
-            closeWindow();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de añadir videojuego.");
-        }
     }
     @FXML
     private void navigateToLogIn(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("logInV.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("LogIn");
-            stage.setScene(new Scene(root));
-            stage.show();
-            closeWindow();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
-        }
-    }
-
-    @FXML
-    private void navigateToUser(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("perfilUsuario.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("inicioV.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("LogIn");
@@ -168,7 +142,7 @@ public class InicioController extends Controller implements Initializable {
     }
 
     private void closeWindow() {
-        Stage stage = (Stage) btnAnadir.getScene().getWindow();
+        Stage stage = (Stage) btnVolver.getScene().getWindow();
         stage.close();
     }
 
@@ -185,15 +159,13 @@ public class InicioController extends Controller implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("videojuegoDetails.fxml"));
             Parent root = loader.load();
 
-
             VideojuegoDetailsController controller = loader.getController();
             controller.setVideojuego(videojuego);
-
 
             Stage stage = new Stage();
             stage.setTitle("Detalles del Videojuego");
             stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL); // Ventana modal
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -202,9 +174,8 @@ public class InicioController extends Controller implements Initializable {
     }
 
 
-
     @Override
-    public void onOpen(Object input) {
+    public void onOpen(Object input) throws IOException {
 
     }
 
@@ -227,5 +198,6 @@ public class InicioController extends Controller implements Initializable {
     public void warningAlert(String text1, String text2, String text3) {
 
     }
+
 
 }

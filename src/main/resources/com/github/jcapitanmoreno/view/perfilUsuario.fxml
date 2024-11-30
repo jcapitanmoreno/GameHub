@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="882.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.PerfilUsuarioController">
+   <children>
+      <TableView fx:id="videojuegosTable" layoutX="141.0" layoutY="115.0" prefHeight="358.0" prefWidth="598.0">
+         <columns>
+            <TableColumn fx:id="tituloColumn" prefWidth="111.20001220703125" text="Titulo" />
+            <TableColumn fx:id="generoColumn" prefWidth="114.39994812011719" text="Genero" />
+            <TableColumn fx:id="plataformaColumn" prefWidth="139.99993896484375" text="Plataforma" />
+            <TableColumn fx:id="fechaColumn" prefWidth="120.79998779296875" text="Fecha" />
+            <TableColumn fx:id="usuarioColumn" prefWidth="110.39996337890625" text="Usuario" />
+         </columns>
+      </TableView>
+      <Button fx:id="btnVolver" layoutX="393.0" layoutY="509.0" onMouseClicked="#navigateToLogIn" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="volver" />
+      <Label layoutX="136.0" layoutY="57.0" text="Nombre de Usuario:" />
+      <Label layoutX="510.0" layoutY="57.0" text="Correo Electronico:" />
+      <Label fx:id="lblUsuario" layoutX="269.0" layoutY="57.0" text="Label 1" />
+      <Label fx:id="lblCorreo" layoutX="631.0" layoutY="57.0" text="Label 2" />
+   </children>
+</AnchorPane>

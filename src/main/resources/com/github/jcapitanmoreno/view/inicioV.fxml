@@ -21,7 +21,7 @@
       </TableView>
       <Button fx:id="btnAnadir" layoutX="710.0" layoutY="504.0" onAction="#navigateToAdd" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Añadir" />
       <Button fx:id="btnVolver" layoutX="92.0" layoutY="504.0" onAction="#navigateToLogIn" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="volver" />
-      <ImageView fx:id="userImageView" fitHeight="129.0" fitWidth="109.0" layoutX="759.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="userImageView" fitHeight="129.0" fitWidth="109.0" layoutX="759.0" layoutY="14.0" onMouseClicked="#navigateToUser" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@IMG/SolarUserCircleBold.png" />
          </image>

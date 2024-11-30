@@ -1,8 +1,10 @@
 package com.github.jcapitanmoreno.view;
 
+import com.github.jcapitanmoreno.model.dao.DisponibleDAO;
 import com.github.jcapitanmoreno.model.dao.GeneroDAO;
 import com.github.jcapitanmoreno.model.dao.PlataformaDAO;
 import com.github.jcapitanmoreno.model.dao.VideojuegosDAO;
+import com.github.jcapitanmoreno.model.entity.Disponible;
 import com.github.jcapitanmoreno.model.entity.Genero;
 import com.github.jcapitanmoreno.model.entity.Plataformas;
 import com.github.jcapitanmoreno.model.entity.Usuarios;
@@ -42,7 +44,6 @@ public class AddGameController {
     private TextField trailer;
     @FXML
     private Button btnAtras;
-
     GeneroDAO generoDAO = new GeneroDAO();
     PlataformaDAO plataformaDAO = new PlataformaDAO();
 
@@ -78,7 +79,7 @@ public class AddGameController {
         }
     }
 
-    @FXML
+   @FXML
     private void handleAnadirJuego() {
         String nombre = nombreJuegoField.getText();
         String descripcion = descripcionArea.getText();
@@ -119,7 +120,6 @@ public class AddGameController {
         }
     }
 
-
     private void limpiarCampos() {
         nombreJuegoField.clear();
         descripcionArea.clear();
@@ -137,7 +137,6 @@ public class AddGameController {
             navigateToInicio();
         }
     }
-
 
     private void navigateToInicio(){
         try {

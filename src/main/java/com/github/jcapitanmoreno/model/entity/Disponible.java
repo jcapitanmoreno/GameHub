@@ -17,6 +17,11 @@ public class Disponible {
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
+    public Disponible(int videojuegoId, int idPlataforma, String fechaLanzamiento) {
+
+
+    }
+
     public Videojuegos getVideojuego() {
         return videojuego;
     }

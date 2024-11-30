@@ -30,10 +30,12 @@ public class VideojuegoDetailsController extends Controller implements Initializ
     @FXML
     private Label lblDescripcion;
 
+    @FXML
+    private Label lblEnlace;
+
 
 
     @FXML
-
     public void setVideojuego(Videojuegos videojuego) {
         if (videojuego == null) {
             System.err.println("El videojuego es nulo.");
@@ -53,6 +55,9 @@ public class VideojuegoDetailsController extends Controller implements Initializ
                         ? videojuego.getDescripcion()
                         : "Sin descripción disponible."
         );
+        lblEnlace.setText( videojuego.getEnlaceTrailer() != null && !videojuego.getEnlaceTrailer().isEmpty()
+                ? videojuego.getEnlaceTrailer()
+                : "sin enlace disponible");
 
     }
 

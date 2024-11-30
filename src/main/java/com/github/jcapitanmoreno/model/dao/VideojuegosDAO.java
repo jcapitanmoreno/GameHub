@@ -2,6 +2,7 @@ package com.github.jcapitanmoreno.model.dao;
 
 import com.github.jcapitanmoreno.model.connection.ConnectionXamp;
 import com.github.jcapitanmoreno.model.entity.*;
+import com.github.jcapitanmoreno.model.singleton.UsuarioSingleton;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class VideojuegosDAO {
     private final static String INSERT_FULL = "INSERT INTO videojuegos (nombre, descripcion, enlaceTrailer, idGenero, idUsuarios) VALUES (?, ?, ?, ?, ?)";
     private final static String INSERT_DISPONIBLE = "INSERT INTO disponible (idVideojuego, idPlataforma, fechaLanzamiento) VALUES (?, ?, ?)";
 
-    private final static String GET_DATA = "SELECT v.nombre AS titulo, v.descripcion AS descripcion, " +
+    private final static String GET_DATA = "SELECT v.nombre AS titulo, v.descripcion AS descripcion, v.enlaceTrailer AS enlaceTrailer, " +
             "g.nombre AS genero, " +
             "p.nombre AS plataforma, " +
             "d.fechaLanzamiento AS fecha, " +
@@ -35,6 +36,73 @@ public class VideojuegosDAO {
             "JOIN usuarios u ON v.idUsuarios = u.id " +
             "JOIN disponible d ON v.id = d.idVideojuego " +
             "JOIN plataformas p ON d.idPlataforma = p.id";
+
+    private final static String GET_DATA_BY_USER = "SELECT v.nombre AS titulo, v.descripcion AS descripcion, v.enlaceTrailer AS enlaceTrailer, " +
+            "g.nombre AS genero, " +
+            "p.nombre AS plataforma, " +
+            "d.fechaLanzamiento AS fecha, " +
+            "u.usuario AS usuario " +
+            "FROM videojuegos v " +
+            "JOIN genero g ON v.idGenero = g.id " +
+            "JOIN usuarios u ON v.idUsuarios = u.id " +
+            "JOIN disponible d ON v.id = d.idVideojuego " +
+            "JOIN plataformas p ON d.idPlataforma = p.id " +
+            "WHERE u.usuario = ?";
+
+    public List<Videojuegos> getDataByUser() throws SQLException {
+        List<Videojuegos> videojuegos = new ArrayList<>();
+        Connection conn = ConnectionXamp.getConnection();
+
+        // Obtener el usuario logueado desde UsuarioSingleton
+        Usuarios usuarioLogueado = UsuarioSingleton.get_Instance().getPlayerLoged();
+        if (usuarioLogueado == null) {
+            throw new IllegalStateException("No hay un usuario logueado.");
+        }
+        String usuarioActual = usuarioLogueado.getUsuario();
+
+        try (PreparedStatement statement = conn.prepareStatement(GET_DATA_BY_USER)) {
+            statement.setString(1, usuarioActual);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String titulo = resultSet.getString("titulo");
+                String genero = resultSet.getString("genero");
+                String plataforma = resultSet.getString("plataforma");
+                String fecha = resultSet.getString("fecha");
+                String usuario = resultSet.getString("usuario");
+                String descripcion = resultSet.getString("descripcion");
+                String enlace = resultSet.getString("enlaceTrailer");
+
+                Videojuegos videojuego = new Videojuegos();
+                videojuego.setNombre(titulo);
+                videojuego.setDescripcion(descripcion);
+                videojuego.setEnlaceTrailer(enlace);
+
+                Genero generoObj = new Genero();
+                generoObj.setNombre(genero);
+
+                Usuarios usuarioObj = new Usuarios();
+                usuarioObj.setUsuario(usuario);
+
+                Disponible disponible = new Disponible();
+                disponible.setFechaLanzamiento(fecha);
+                ArrayList<Plataformas> plataformas = new ArrayList<>();
+                Plataformas plataformaObj = new Plataformas();
+                plataformaObj.setNombre(plataforma);
+                plataformas.add(plataformaObj);
+                disponible.setPlataforma(plataformas);
+
+                videojuego.setGenero(generoObj);
+                videojuego.setUsuario(usuarioObj);
+                videojuego.setDisponible(disponible);
+
+                videojuegos.add(videojuego);
+            }
+        }
+        return videojuegos;
+    }
+
+
 
     public List<Videojuegos> getAllData() throws SQLException {
         List<Videojuegos> videojuegos = new ArrayList<>();
@@ -50,10 +118,12 @@ public class VideojuegosDAO {
                 String fecha = resultSet.getString("fecha");
                 String usuario = resultSet.getString("usuario");
                 String descripcion = resultSet.getString("descripcion");
+                String enlace = resultSet.getString("enlaceTrailer");
 
                 Videojuegos videojuego = new Videojuegos();
                 videojuego.setNombre(titulo);
                 videojuego.setDescripcion(descripcion);
+                videojuego.setEnlaceTrailer(enlace);
 
                 Genero generoObj = new Genero();
                 generoObj.setNombre(genero);

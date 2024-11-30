@@ -13,28 +13,32 @@
             <Label style="-fx-font-size: 16; -fx-font-weight: bold;" text="Detalles del Videojuego" />
             <GridPane hgap="10" prefHeight="189.0" prefWidth="374.0" vgap="10">
                 <Label text="Título:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <Label fx:id="lblTitulo" GridPane.columnIndex="2" />
+                <Label fx:id="lblTitulo" GridPane.columnIndex="3" />
 
                 <Label text="Género:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <Label fx:id="lblGenero" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Label fx:id="lblGenero" GridPane.columnIndex="3" GridPane.rowIndex="1" />
 
                 <Label text="Plataformas:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <Label fx:id="lblPlataformas" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Label fx:id="lblPlataformas" GridPane.columnIndex="3" GridPane.rowIndex="2" />
 
                 <Label text="Fecha de lanzamiento:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                <Label fx:id="lblFecha" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Label fx:id="lblFecha" GridPane.columnIndex="3" GridPane.rowIndex="3" />
 
                 <Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                <Label fx:id="lblUsuario" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                <Label fx:id="lblUsuario" GridPane.columnIndex="3" GridPane.rowIndex="4" />
 
                 <Label text="Descripción:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                <Label fx:id="lblDescripcion" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                <Label fx:id="lblDescripcion" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <Label text="Enlace" GridPane.rowIndex="7" />
+            <Label fx:id="lblEnlace" GridPane.columnIndex="2" GridPane.rowIndex="7" />
             <columnConstraints>
+               <ColumnConstraints />
                <ColumnConstraints />
                <ColumnConstraints />
                <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
+               <RowConstraints />
                <RowConstraints />
                <RowConstraints />
                <RowConstraints />
