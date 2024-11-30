@@ -4,6 +4,7 @@ package com.github.jcapitanmoreno.view;
 import com.github.jcapitanmoreno.model.dao.UsuariosDAO;
 import com.github.jcapitanmoreno.model.entity.Usuarios;
 import com.github.jcapitanmoreno.model.singleton.UsuarioSingleton;
+import com.github.jcapitanmoreno.utils.PasswordUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,20 +50,29 @@ public class LoginController implements Initializable {
         }
 
         try {
+            // Buscar usuario por nombre de usuario
             Usuarios usuario = usuariosDAO.findAll().stream()
-                    .filter(u -> u.getUsuario().equals(username) && u.getContrasena().equals(password))
+                    .filter(u -> u.getUsuario().equals(username))
                     .findFirst()
                     .orElse(null);
 
             if (usuario != null) {
-                UsuarioSingleton.get_Instance().login(usuario);
-                showAlert(Alert.AlertType.INFORMATION, "Inicio de Sesión", "Inicio de sesión exitoso.");
-                if (usuarioSingleton.getPlayerLoged().isAdmin()){
-                     navigateToInicioAdm();
-                }else {
-                    navigateToInicio();
-                }
 
+                String hashedPassword = PasswordUtil.hashPassword(password);
+
+
+                if (usuario.getContrasena().equals(hashedPassword)) {
+                    UsuarioSingleton.get_Instance().login(usuario);
+                    showAlert(Alert.AlertType.INFORMATION, "Inicio de Sesión", "Inicio de sesión exitoso.");
+
+                    if (usuarioSingleton.getPlayerLoged().isAdmin()) {
+                        navigateToInicioAdm();
+                    } else {
+                        navigateToInicio();
+                    }
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Error", "Usuario o contraseña incorrectos.");
+                }
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Usuario o contraseña incorrectos.");
             }

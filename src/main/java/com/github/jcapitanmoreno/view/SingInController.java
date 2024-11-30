@@ -2,6 +2,7 @@ package com.github.jcapitanmoreno.view;
 
 import com.github.jcapitanmoreno.model.dao.UsuariosDAO;
 import com.github.jcapitanmoreno.model.entity.Usuarios;
+import com.github.jcapitanmoreno.utils.PasswordUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -64,7 +65,9 @@ public class SingInController {
             return;
         }
 
-        Usuarios usuarioNuevo = new Usuarios(0, usuario, contrasena, correo, isAdmin);
+        String hashedPassword = PasswordUtil.hashPassword(contrasena);
+
+        Usuarios usuarioNuevo = new Usuarios(0, usuario, hashedPassword, correo, isAdmin);
         UsuariosDAO usuariosDAO = new UsuariosDAO();
 
         try {
