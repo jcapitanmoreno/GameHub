@@ -31,7 +31,6 @@ public class DisponibleDAO {
     public Disponible save(Disponible disponible) throws SQLException {
         try (PreparedStatement statement = ConnectionXamp.getConnection().prepareStatement(INSERT)) {
             statement.setInt(1, disponible.getVideojuego().getId());
-            //statement.setInt(2, disponible.getPlataforma().getId());
             statement.setString(3, disponible.getFechaLanzamiento());
             statement.executeUpdate();
         }
@@ -41,7 +40,6 @@ public class DisponibleDAO {
     public Disponible delete(Disponible disponible) throws SQLException {
         try (PreparedStatement statement = ConnectionXamp.getConnection().prepareStatement(DELETE)) {
             statement.setInt(1, disponible.getVideojuego().getId());
-            //statement.setInt(2, disponible.getPlataforma().getId());
             statement.executeUpdate();
         }
         return disponible;

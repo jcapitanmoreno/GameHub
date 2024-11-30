@@ -51,8 +51,9 @@ public class AddGeneroController extends Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         generoDAO = new GeneroDAO();
         generoList = FXCollections.observableArrayList();
+        tblGenero.setEditable(true);
 
-        // Configurar las columnas de la tabla
+
         colGeneroId.setCellValueFactory(cellData -> {
             Genero genero = cellData.getValue();
             int id = genero.getId();
@@ -65,10 +66,10 @@ public class AddGeneroController extends Controller implements Initializable {
             return new SimpleObjectProperty<>(name);
         });
 
-        // Asignar la lista observable a la tabla
+
         tblGenero.setItems(generoList);
 
-        // Cargar los géneros al inicializar
+
         try {
             loadGeneros();
         } catch (SQLException e) {
@@ -89,14 +90,9 @@ public class AddGeneroController extends Controller implements Initializable {
             warningAlert("Advertencia", "Campo vacío", "Por favor, introduce un nombre para el género.");
             return;
         }
-
         Genero nuevoGenero = new Genero(0, nombreGenero);
         generoDAO.save(nuevoGenero);
-
-        // Actualizar la tabla
         loadGeneros();
-
-        // Limpiar el campo de texto
         txtGenero.clear();
     }
 
@@ -108,10 +104,7 @@ public class AddGeneroController extends Controller implements Initializable {
             warningAlert("Advertencia", "No seleccionado", "Por favor, selecciona un género para eliminar.");
             return;
         }
-
         generoDAO.delete(selectedGenero);
-
-        // Actualizar la tabla
         loadGeneros();
     }
 

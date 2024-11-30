@@ -28,7 +28,6 @@ public class UsuariosDAO {
                 statement.setString(4, entity.getCorreo());
                 statement.executeUpdate();
 
-                // Recuperar el ID generado automáticamente
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         entity.setId(generatedKeys.getInt(1));

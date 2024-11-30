@@ -115,10 +115,10 @@ public class InicioAdmController extends Controller implements Initializable {
 
 
         videojuegosTable.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) { // Detectar doble clic
+            if (event.getClickCount() == 2) {
                 Videojuegos selectedVideojuego = videojuegosTable.getSelectionModel().getSelectedItem();
                 if (selectedVideojuego != null) {
-                    openDetailsModal(selectedVideojuego); // Llamar al método que abre la ventana modal
+                    openDetailsModal(selectedVideojuego);
                 }
             }
         });

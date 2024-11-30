@@ -193,7 +193,7 @@ public class InicioController extends Controller implements Initializable {
             Stage stage = new Stage();
             stage.setTitle("Detalles del Videojuego");
             stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL); // Ventana modal
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

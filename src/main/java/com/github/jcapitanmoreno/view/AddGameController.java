@@ -111,7 +111,7 @@ public class AddGameController {
 
             VideojuegosDAO videojuegosDAO = new VideojuegosDAO();
             videojuegosDAO.saveFull(nombre, descripcion, enlaceTrailer, idGenero, idUsuario, idPlataforma, fechaLanzamiento);
-            System.out.println("Videojuego añadido exitosamente."); //cambiar por memsaje de alerta
+            System.out.println("Videojuego añadido exitosamente.");
 
             limpiarCampos();
 

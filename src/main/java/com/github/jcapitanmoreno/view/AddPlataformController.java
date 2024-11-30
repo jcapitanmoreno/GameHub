@@ -51,10 +51,11 @@ public class AddPlataformController extends Controller implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tblPlataforma.setEditable(true);
 
         plataformaList = FXCollections.observableArrayList();
 
-        // Configurar las columnas de la tabla
+
         plataformaId.setCellValueFactory(cellData -> {
             Plataformas plataformas = cellData.getValue();
             int id = plataformas.getId();
@@ -67,10 +68,9 @@ public class AddPlataformController extends Controller implements Initializable 
             return new SimpleObjectProperty<>(name);
         });
 
-        // Asignar la lista observable a la tabla
         tblPlataforma.setItems(plataformaList);
 
-        // Cargar los géneros al inicializar
+
         try {
             loadPlataformas();
         } catch (SQLException e) {
@@ -95,10 +95,10 @@ public class AddPlataformController extends Controller implements Initializable 
         Plataformas nuevaPlataforma = new Plataformas(0, nombrePlataforma);
         PlataformaDAO.save(nuevaPlataforma);
 
-        // Actualizar la tabla
+
         loadPlataformas();
 
-        // Limpiar el campo de texto
+
         txtPlataforma.clear();
     }
 
@@ -113,7 +113,7 @@ public class AddPlataformController extends Controller implements Initializable 
 
         PlataformaDAO.delete(selectedPlataforma);
 
-        // Actualizar la tabla
+
         loadPlataformas();
     }
 
