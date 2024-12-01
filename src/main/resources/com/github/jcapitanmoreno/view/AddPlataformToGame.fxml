@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="882.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.AddPlataformToGameController">
+   <children>
+      <TableView fx:id="videojuegosTable" layoutX="134.0" layoutY="167.0" prefHeight="306.0" prefWidth="598.0">
+         <columns>
+            <TableColumn fx:id="tituloColumn" prefWidth="111.20001220703125" text="Titulo" />
+            <TableColumn fx:id="generoColumn" prefWidth="114.39994812011719" text="Genero" />
+            <TableColumn fx:id="plataformaColumn" prefWidth="139.99993896484375" text="Plataforma" />
+            <TableColumn fx:id="fechaColumn" prefWidth="120.79998779296875" text="Fecha" />
+            <TableColumn fx:id="usuarioColumn" prefWidth="110.39996337890625" text="Usuario" />
+         </columns>
+      </TableView>
+      <Button layoutX="669.0" layoutY="504.0" prefHeight="38.0" prefWidth="125.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Añadir plataforma" />
+      <Button layoutX="85.0" layoutY="504.0" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Volver" />
+      <Label layoutX="312.0" layoutY="28.0" prefHeight="26.0" prefWidth="258.0" text="añade aqui una plataforma mas a un videojuego" />
+      <ComboBox layoutX="134.0" layoutY="99.0" prefWidth="150.0" />
+      <ComboBox layoutX="581.0" layoutY="99.0" prefWidth="150.0" />
+      <Label layoutX="134.0" layoutY="72.0" prefHeight="26.0" prefWidth="150.0" text="seleccina el juego" />
+      <Label layoutX="581.0" layoutY="72.0" prefHeight="26.0" prefWidth="150.0" text="selecciona la plataforma" />
+   </children>
+</AnchorPane>

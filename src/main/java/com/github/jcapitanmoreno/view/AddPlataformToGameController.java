@@ -11,11 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -26,7 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class InicioAdmController extends Controller implements Initializable {
+public class AddPlataformToGameController extends Controller implements Initializable{
 
     @FXML
     private TableView<Videojuegos> videojuegosTable;
@@ -47,24 +43,17 @@ public class InicioAdmController extends Controller implements Initializable {
     private TableColumn<Videojuegos, String> usuarioColumn;
 
     @FXML
-    private Button btnAnadir;
-
-    @FXML
     private Button btnVolver;
 
     @FXML
-    private Button btnAddGenero;
+    private ComboBox cbJuego;
 
     @FXML
-    private Button btnAddPlataforma;
-    @FXML
-    private ImageView imgDeleteVideojuego;
-
-    @FXML
-    private ImageView imgAddPlataforToGame;
+    private ComboBox cbPlataforma;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         VideojuegosDAO videojuegosDAO = new VideojuegosDAO();
         List<Videojuegos> inicioVideojuegos;
         try {
@@ -74,14 +63,12 @@ public class InicioAdmController extends Controller implements Initializable {
         }
         ObservableList<Videojuegos> observableVideojuegos = FXCollections.observableArrayList(inicioVideojuegos);
 
-
         videojuegosTable.setItems(observableVideojuegos);
 
         tituloColumn.setCellValueFactory(cellData -> {
             Videojuegos videojuegos = cellData.getValue();
             String name = videojuegos.getNombre();
             return new SimpleStringProperty(name);
-
 
         });
         generoColumn.setCellValueFactory(cellData -> {
@@ -105,7 +92,6 @@ public class InicioAdmController extends Controller implements Initializable {
             String name = videojuegos.getDisponible().getFechaLanzamiento();
             return new SimpleStringProperty(name);
 
-
         });
         usuarioColumn.setCellValueFactory(cellData -> {
             Videojuegos videojuegos = cellData.getValue();
@@ -115,8 +101,6 @@ public class InicioAdmController extends Controller implements Initializable {
 
         });
 
-
-
         videojuegosTable.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 Videojuegos selectedVideojuego = videojuegosTable.getSelectionModel().getSelectedItem();
@@ -125,102 +109,6 @@ public class InicioAdmController extends Controller implements Initializable {
                 }
             }
         });
-
-    }
-
-    @FXML
-    private void navigateToAdd() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("addGame.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("añadir videojuego");
-            stage.setScene(new Scene(root));
-            stage.show();
-            closeWindow();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de añadir videojuego.");
-        }
-    }
-    @FXML
-    private void navigateToLogIn(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("logInV.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("LogIn");
-            stage.setScene(new Scene(root));
-            stage.show();
-            closeWindow();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
-        }
-    }
-    @FXML
-    private void navigateToAddGenero(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("addGenero.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("añadir videojuego");
-            stage.setScene(new Scene(root));
-            stage.show();
-            closeWindow();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de añadir videojuego.");
-        }
-    }
-
-    @FXML
-    private void navigateToAddPlataforma(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("addPlataform.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("LogIn");
-            stage.setScene(new Scene(root));
-            stage.show();
-            closeWindow();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
-        }
-    }
-
-    private void closeWindow() {
-        Stage stage = (Stage) btnAnadir.getScene().getWindow();
-        stage.close();
-    }
-
-    private void showAlert(Alert.AlertType alertType, String title, String content) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
-    @FXML
-    private void deleteSelectedVideojuego() {
-
-        Videojuegos selectedVideojuego = videojuegosTable.getSelectionModel().getSelectedItem();
-        if (selectedVideojuego != null) {
-            try {
-
-                VideojuegosDAO videojuegosDAO = new VideojuegosDAO();
-                videojuegosDAO.delete(selectedVideojuego);
-
-                videojuegosTable.getItems().remove(selectedVideojuego);
-                showAlert(Alert.AlertType.INFORMATION, "Éxito", "El videojuego se eliminó correctamente.");
-            } catch (SQLException e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Error", "No se pudo eliminar el videojuego.");
-            }
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Advertencia", "Seleccione un videojuego para eliminar.");
-        }
     }
 
     private void openDetailsModal(Videojuegos videojuego) {
@@ -241,6 +129,13 @@ public class InicioAdmController extends Controller implements Initializable {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de detalles.");
         }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     @Override

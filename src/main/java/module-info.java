@@ -3,6 +3,7 @@ module com.github.jcapitanmoreno {
     requires javafx.fxml;
     requires java.sql;
     requires java.xml.bind;
+    requires java.desktop;
 
     opens com.github.jcapitanmoreno.view to javafx.fxml;
     exports com.github.jcapitanmoreno.view;
