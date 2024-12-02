@@ -6,6 +6,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+
+/**
+ * Represents the properties required to establish a database connection.
+ * This class is serializable and can be mapped to an XML structure.
+ */
 @XmlRootElement(name="connection")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ConnectionProperties implements Serializable {

@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+
 public class InicioAdmController extends Controller implements Initializable {
 
     @FXML
@@ -63,6 +64,10 @@ public class InicioAdmController extends Controller implements Initializable {
     @FXML
     private ImageView imgAddPlataforToGame;
 
+    /**
+     * Initializes the controller by setting up the table with video game data.
+     * Fetches data from the database and binds it to the table.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         VideojuegosDAO videojuegosDAO = new VideojuegosDAO();
@@ -115,8 +120,6 @@ public class InicioAdmController extends Controller implements Initializable {
 
         });
 
-
-
         videojuegosTable.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 Videojuegos selectedVideojuego = videojuegosTable.getSelectionModel().getSelectedItem();
@@ -128,6 +131,9 @@ public class InicioAdmController extends Controller implements Initializable {
 
     }
 
+    /**
+     * Navigates to the "Add Game" scene, allowing the user to add a new video game.
+     */
     @FXML
     private void navigateToAdd() {
         try {
@@ -143,6 +149,10 @@ public class InicioAdmController extends Controller implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de añadir videojuego.");
         }
     }
+
+    /**
+     * Navigates to the "Login" scene for user login.
+     */
     @FXML
     private void navigateToLogIn(){
         try {
@@ -174,6 +184,9 @@ public class InicioAdmController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Navigates to the "addPlataforma" scene for user login.
+     */
     @FXML
     private void navigateToAddPlataforma(){
         try {
@@ -206,11 +219,21 @@ public class InicioAdmController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Method to close the current window.
+     */
     private void closeWindow() {
         Stage stage = (Stage) btnAnadir.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Displays a message using an alert.
+     *
+     * @param alertType the type of the alert (ERROR, INFORMATION, WARNING)
+     * @param title the title of the alert
+     * @param content the content of the alert
+     */
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -218,6 +241,9 @@ public class InicioAdmController extends Controller implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Method to delete the selected video game from the database and remove it from the table.
+     */
     @FXML
     private void deleteSelectedVideojuego() {
 
@@ -239,6 +265,12 @@ public class InicioAdmController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Opens the details modal for the selected video game.
+     * Displays detailed information about the selected game.
+     *
+     * @param videojuego the video game to display details for
+     */
     private void openDetailsModal(Videojuegos videojuego) {
         try {
 

@@ -21,6 +21,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class responsible for managing the "Add Genre" functionality.
+ * This includes adding, editing, and deleting genres, as well as navigating between views.
+ */
 public class AddGeneroController extends Controller implements Initializable {
     @FXML
     private TextField txtGenero;
@@ -51,7 +55,10 @@ public class AddGeneroController extends Controller implements Initializable {
     GeneroDAO generoDAO;
 
 
-
+    /**
+     * Initializes the controller, setting up the genre list and table view.
+     * This method is automatically called when the FXML is loaded.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         generoDAO = new GeneroDAO();
@@ -95,14 +102,21 @@ public class AddGeneroController extends Controller implements Initializable {
     }
 
 
-
+    /**
+     * Loads all genres from the database and populates the genre table.
+     * @throws SQLException If there is an error querying the database.
+     */
     private void loadGeneros() throws SQLException {
         List<Genero> generos = generoDAO.findAll();
         generoList.setAll(generos);
     }
 
 
-
+    /**
+     * Handles the event when the "Add Genre" button is clicked.
+     * It checks if the genre name is valid and adds it to the database.
+     * @throws SQLException If there is an error saving the genre.
+     */
     @FXML
     private void addGenero() throws SQLException {
         String nombreGenero = txtGenero.getText();
@@ -117,6 +131,11 @@ public class AddGeneroController extends Controller implements Initializable {
         txtGenero.clear();
     }
 
+    /**
+     * Handles the event when the "Delete Genre" button is clicked.
+     * It deletes the selected genre from the database.
+     * @throws SQLException If there is an error deleting the genre.
+     */
     @FXML
     private void deleteGenero() throws SQLException {
         Genero selectedGenero = tblGenero.getSelectionModel().getSelectedItem();
@@ -129,6 +148,11 @@ public class AddGeneroController extends Controller implements Initializable {
         loadGeneros();
     }
 
+
+    /**
+     * Navigates to the admin homepage.
+     * It loads the admin home page and closes the current window.
+     */
     @FXML
     private void navigateToInicioAdm() {
         try {
@@ -144,7 +168,12 @@ public class AddGeneroController extends Controller implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
         }
     }
-
+    /**
+     * Shows an alert with the specified type, title, and content.
+     * @param alertType The type of the alert (e.g., ERROR, WARNING).
+     * @param title The title of the alert.
+     * @param content The content message of the alert.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -152,6 +181,9 @@ public class AddGeneroController extends Controller implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Closes the current window.
+     */
     private void closeWindow() {
         Stage stage = (Stage) btnVolver.getScene().getWindow();
         stage.close();

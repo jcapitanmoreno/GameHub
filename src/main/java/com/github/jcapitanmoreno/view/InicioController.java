@@ -27,6 +27,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * Controller class for the main screen (InicioController), handling the interaction with video games list
+ * and navigation to other views.
+ */
 public class InicioController extends Controller implements Initializable {
 
     @FXML
@@ -56,6 +60,10 @@ public class InicioController extends Controller implements Initializable {
     @FXML
     private ImageView userImageView;
 
+    /**
+     * Initializes the controller by loading the video games list from the database,
+     * binding the data to the table, and setting up the table columns.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         VideojuegosDAO videojuegosDAO = new VideojuegosDAO();
@@ -120,6 +128,9 @@ public class InicioController extends Controller implements Initializable {
         });
     }
 
+    /**
+     * Navigates to the "Add Game" screen where a new video game can be added.
+     */
     @FXML
     private void navigateToAdd() {
         try {
@@ -135,6 +146,10 @@ public class InicioController extends Controller implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de añadir videojuego.");
         }
     }
+
+    /**
+     * Navigates to the login screen.
+     */
     @FXML
     private void navigateToLogIn(){
         try {
@@ -151,6 +166,9 @@ public class InicioController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Navigates to the user profile screen.
+     */
     @FXML
     private void navigateToUser(){
         try {
@@ -167,11 +185,21 @@ public class InicioController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Closes the current window (stage).
+     */
     private void closeWindow() {
         Stage stage = (Stage) btnAnadir.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Displays an alert with the given parameters (type, title, and content).
+     *
+     * @param alertType the type of the alert (ERROR, INFORMATION, etc.)
+     * @param title the title of the alert
+     * @param content the content message of the alert
+     */
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -179,6 +207,11 @@ public class InicioController extends Controller implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Opens the modal window to display the details of a selected video game.
+     *
+     * @param videojuego the video game object whose details will be displayed
+     */
     private void openDetailsModal(Videojuegos videojuego) {
         try {
 

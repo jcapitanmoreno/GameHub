@@ -56,6 +56,11 @@ public class PerfilUsuarioController extends Controller implements Initializable
     @FXML
     private ImageView imgDeleteVideojuego;
 
+    /**
+     * Initialization of the view. Loads the user data and the associated games.
+     * @param url URL of the FXML view
+     * @param resourceBundle Resources for internationalization
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Usuarios usuarioLogueado = UsuarioSingleton.get_Instance().getPlayerLoged();
@@ -129,6 +134,10 @@ public class PerfilUsuarioController extends Controller implements Initializable
         });
 
     }
+
+    /**
+     * Method to navigate to the login view.
+     */
     @FXML
     private void navigateToLogIn(){
         try {
@@ -144,12 +153,19 @@ public class PerfilUsuarioController extends Controller implements Initializable
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
         }
     }
-
+    /**
+     * Closes the current window.
+     */
     private void closeWindow() {
         Stage stage = (Stage) btnVolver.getScene().getWindow();
         stage.close();
     }
-
+    /**
+     * Displays an alert with a message.
+     * @param alertType Type of alert (information, error, etc.)
+     * @param title Title of the alert
+     * @param content Content of the alert
+     */
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -157,6 +173,10 @@ public class PerfilUsuarioController extends Controller implements Initializable
         alert.showAndWait();
     }
 
+    /**
+     * Opens a modal with the details of the selected game.
+     * @param videojuego The game whose details will be shown
+     */
     private void openDetailsModal(Videojuegos videojuego) {
         try {
 
@@ -177,6 +197,9 @@ public class PerfilUsuarioController extends Controller implements Initializable
         }
     }
 
+    /**
+     * Deletes the selected game from the table and the database.
+     */
     @FXML
     private void deleteSelectedVideojuego() {
 

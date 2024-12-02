@@ -23,6 +23,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class responsible for managing the "Add Platform" functionality.
+ * This includes adding, editing, and deleting platforms, as well as navigating between views.
+ */
 public class AddPlataformController extends Controller implements Initializable {
     @FXML
     private TextField txtPlataforma;
@@ -50,6 +54,10 @@ public class AddPlataformController extends Controller implements Initializable 
 
     PlataformaDAO plataformaDAO = new PlataformaDAO();
 
+    /**
+     * Initializes the controller, setting up the platform list and table view.
+     * This method is automatically called when the FXML is loaded.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tblPlataforma.setEditable(true);
@@ -92,13 +100,22 @@ public class AddPlataformController extends Controller implements Initializable 
         } catch (SQLException e) {
             errorAlert("Error", "No se pudieron cargar las plataformas", e.getMessage());
         }
-
     }
+
+    /**
+     * Loads all platforms from the database and populates the platform table.
+     * @throws SQLException If there is an error querying the database.
+     */
     private void loadPlataformas() throws SQLException {
         List<Plataformas> generos = plataformaDAO.findAll();
         plataformaList.setAll(generos);
     }
 
+    /**
+     * Handles the event when the "Add Platform" button is clicked.
+     * It checks if the platform name is valid and adds it to the database.
+     * @throws SQLException If there is an error saving the platform.
+     */
     @FXML
     private void addPlataforma() throws SQLException {
         String nombrePlataforma = txtPlataforma.getText();
@@ -113,6 +130,11 @@ public class AddPlataformController extends Controller implements Initializable 
         txtPlataforma.clear();
     }
 
+    /**
+     * Handles the event when the "Delete Platform" button is clicked.
+     * It deletes the selected platform from the database.
+     * @throws SQLException If there is an error deleting the platform.
+     */
     @FXML
     private void deletePlataformas() throws SQLException {
         Plataformas selectedPlataforma = tblPlataforma.getSelectionModel().getSelectedItem();
@@ -128,6 +150,10 @@ public class AddPlataformController extends Controller implements Initializable 
         loadPlataformas();
     }
 
+    /**
+     * Navigates to the admin homepage.
+     * It loads the admin home page and closes the current window.
+     */
     @FXML
     private void navigateToInicioAdm() {
         try {
@@ -144,6 +170,12 @@ public class AddPlataformController extends Controller implements Initializable 
         }
     }
 
+    /**
+     * Shows an alert with the specified type, title, and content.
+     * @param alertType The type of the alert (e.g., ERROR, WARNING).
+     * @param title The title of the alert.
+     * @param content The content message of the alert.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -151,6 +183,10 @@ public class AddPlataformController extends Controller implements Initializable 
         alert.showAndWait();
     }
 
+
+    /**
+     * Closes the current window.
+     */
     private void closeWindow() {
         Stage stage = (Stage) btnVolver.getScene().getWindow();
         stage.close();

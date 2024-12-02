@@ -8,6 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data Access Object (DAO) for managing the "videojuegos" table.
+ * Provides CRUD operations for the "videojuegos" entity.
+ */
 public class VideojuegosDAO {
     private final static String INSERT = "INSERT INTO videojuegos (nombre, descripcion, enlaceTrailer, idGenero, idUsuarios) VALUES (?, ?, ?, ?, ?)";
     private final static String UPDATE = "UPDATE videojuegos SET nombre = ?, descripcion = ?, enlaceTrailer = ?, idGenero = ?, idUsuarios = ? WHERE id = ?";
@@ -49,6 +53,12 @@ public class VideojuegosDAO {
             "JOIN plataformas p ON d.idPlataforma = p.id " +
             "WHERE u.usuario = ?";
 
+    /**
+     * Retrieves all video games related to the currently logged-in user.
+     *
+     * @return A list of {@code Videojuegos} entities associated with the logged-in user.
+     * @throws SQLException If an error occurs during the database operation.
+     */
     public List<Videojuegos> getDataByUser() throws SQLException {
         List<Videojuegos> videojuegos = new ArrayList<>();
         Connection conn = ConnectionXamp.getConnection();
@@ -103,7 +113,12 @@ public class VideojuegosDAO {
     }
 
 
-
+    /**
+     * Retrieves all video game data (with availability and related user) from the database.
+     *
+     * @return A list of all {@code Videojuegos} entities with related data.
+     * @throws SQLException If an error occurs during the database operation.
+     */
     public List<Videojuegos> getAllData() throws SQLException {
         List<Videojuegos> videojuegos = new ArrayList<>();
         Connection conn = ConnectionXamp.getConnection();
@@ -151,6 +166,13 @@ public class VideojuegosDAO {
     }
 
 
+    /**
+     * Saves a new video game or updates an existing one.
+     *
+     * @param videojuego The {@code Videojuegos} entity to save or update.
+     * @return The saved or updated {@code Videojuegos} entity.
+     * @throws SQLException If an error occurs during the database operation.
+     */
     public Videojuegos save(Videojuegos videojuego) throws SQLException {
         if (videojuego.getId() == 0) {
             try (PreparedStatement statement = ConnectionXamp.getConnection().prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
@@ -182,6 +204,20 @@ public class VideojuegosDAO {
         return videojuego;
     }
 
+    /**
+     * Saves a new video game and its availability information in the database.
+     * This method inserts the video game into the "videojuegos" table and
+     * the availability information into the "disponible" table.
+     *
+     * @param nombre The name of the video game.
+     * @param descripcion A description of the video game.
+     * @param enlace A URL link to the trailer of the video game.
+     * @param idGenero The ID of the genre associated with the video game.
+     * @param idUsuario The ID of the user who added the video game.
+     * @param idPlataforma The ID of the platform where the video game is available.
+     * @param fechaLanzamiento The release date of the video game.
+     * @throws SQLException If an error occurs during the database operations.
+     */
     public void saveFull(String nombre, String descripcion, String enlace, int idGenero, int idUsuario, int idPlataforma, String fechaLanzamiento) throws SQLException {
         try (
 
@@ -213,6 +249,13 @@ public class VideojuegosDAO {
         }
     }
 
+    /**
+     * Deletes a video game from the database.
+     *
+     * @param videojuego The {@code Videojuegos} entity to delete.
+     * @return The deleted {@code Videojuegos} entity.
+     * @throws SQLException If an error occurs during the database operation.
+     */
     public Videojuegos delete(Videojuegos videojuego) throws SQLException {
         if (videojuego == null || videojuego.getNombre() == "") {
             return null;
@@ -225,6 +268,13 @@ public class VideojuegosDAO {
         return videojuego;
     }
 
+    /**
+     * Retrieves a video game by its ID.
+     *
+     * @param id The ID of the video game to retrieve.
+     * @return The {@code Videojuegos} entity with the given ID, or {@code null} if not found.
+     * @throws SQLException If an error occurs during the database operation.
+     */
     public Videojuegos findById(int id) throws SQLException {
         try (PreparedStatement statement = ConnectionXamp.getConnection().prepareStatement(SELECT_BY_ID)) {
             statement.setInt(1, id);
@@ -237,6 +287,12 @@ public class VideojuegosDAO {
         return null;
     }
 
+    /**
+     * Retrieves all video games from the database.
+     *
+     * @return A list of all {@code Videojuegos} entities.
+     * @throws SQLException If an error occurs during the database operation.
+     */
     public List<Videojuegos> findAll() throws SQLException {
         List<Videojuegos> videojuegos = new ArrayList<>();
         try (PreparedStatement statement = ConnectionXamp.getConnection().prepareStatement(SELECT_ALL);

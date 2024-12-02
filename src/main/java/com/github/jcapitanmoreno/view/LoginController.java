@@ -21,6 +21,10 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for managing the login functionality.
+ * Handles user authentication and navigation to different views.
+ */
 public class LoginController implements Initializable {
 
     @FXML
@@ -39,6 +43,10 @@ public class LoginController implements Initializable {
     UsuarioSingleton usuarioSingleton = new UsuarioSingleton();
 
 
+    /**
+     * Handles the login process by verifying the username and password entered by the user.
+     * If successful, navigates to the appropriate screen based on user role.
+     */
     @FXML
     private void handleLogin() {
         String username = txtUsuario.getText();
@@ -50,7 +58,7 @@ public class LoginController implements Initializable {
         }
 
         try {
-            // Buscar usuario por nombre de usuario
+
             Usuarios usuario = usuariosDAO.findAll().stream()
                     .filter(u -> u.getUsuario().equals(username))
                     .findFirst()
@@ -82,6 +90,9 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Navigates to the registration (sign-up) screen.
+     */
     @FXML
     private void navigateToSignUp() {
         try {
@@ -97,6 +108,10 @@ public class LoginController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de registro.");
         }
     }
+
+    /**
+     * Navigates to the main (Inicio) screen for regular users.
+     */
     private void navigateToInicio() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("InicioV.fxml"));
@@ -112,6 +127,9 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Navigates to the admin main (Inicio Administrador) screen.
+     */
     private void navigateToInicioAdm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("InicioADMV.fxml"));
@@ -127,6 +145,13 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Displays an alert with the given parameters (alert type, title, and content).
+     *
+     * @param alertType the type of the alert (e.g., ERROR, INFORMATION)
+     * @param title the title of the alert
+     * @param content the content message of the alert
+     */
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -134,6 +159,9 @@ public class LoginController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Closes the current window (stage).
+     */
     private void closeWindow() {
         Stage stage = (Stage) btnIniciarSesion.getScene().getWindow();
         stage.close();

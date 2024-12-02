@@ -10,6 +10,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for displaying the details of a selected video game.
+ * This controller is responsible for populating the details of a video game
+ * in the UI when a video game is selected.
+ */
 public class VideojuegoDetailsController extends Controller implements Initializable {
 
     @FXML
@@ -34,7 +39,11 @@ public class VideojuegoDetailsController extends Controller implements Initializ
     private Label lblEnlace;
 
 
-
+    /**
+     * Sets the details of the selected video game on the UI elements.
+     * It populates the labels with information about the video game.
+     * @param videojuego The video game whose details are to be displayed
+     */
     @FXML
     public void setVideojuego(Videojuegos videojuego) {
         if (videojuego == null) {

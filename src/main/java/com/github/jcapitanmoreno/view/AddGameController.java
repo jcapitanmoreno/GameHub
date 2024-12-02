@@ -1,10 +1,8 @@
 package com.github.jcapitanmoreno.view;
 
-import com.github.jcapitanmoreno.model.dao.DisponibleDAO;
 import com.github.jcapitanmoreno.model.dao.GeneroDAO;
 import com.github.jcapitanmoreno.model.dao.PlataformaDAO;
 import com.github.jcapitanmoreno.model.dao.VideojuegosDAO;
-import com.github.jcapitanmoreno.model.entity.Disponible;
 import com.github.jcapitanmoreno.model.entity.Genero;
 import com.github.jcapitanmoreno.model.entity.Plataformas;
 import com.github.jcapitanmoreno.model.entity.Usuarios;
@@ -22,6 +20,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Controller class responsible for managing the "Add Game" UI and handling user interactions.
+ * It includes functionality to load available game genres, platforms, and to save a new game to the database.
+ */
 public class AddGameController {
 
     @FXML
@@ -47,12 +49,18 @@ public class AddGameController {
     GeneroDAO generoDAO = new GeneroDAO();
     PlataformaDAO plataformaDAO = new PlataformaDAO();
 
+    /**
+     * Initializes the controller by loading the available genres and platforms.
+     */
     @FXML
     public void initialize() {
         cargarGeneros();
         cargarPlataformas();
     }
 
+    /**
+     * Loads all available genres from the database and populates the genre combo box.
+     */
     private void cargarGeneros() {
         try {
             List<Genero> generos = generoDAO.findAll();
@@ -66,6 +74,9 @@ public class AddGameController {
         }
     }
 
+    /**
+     * Loads all available platforms from the database and populates the platform combo box.
+     */
     private void cargarPlataformas() {
         try {
             List<Plataformas> plataformas = plataformaDAO.findAll();
@@ -79,6 +90,10 @@ public class AddGameController {
         }
     }
 
+    /**
+     * Handles the event when the "Add Game" button is clicked. Validates the form fields and
+     * saves the game to the database if the data is valid.
+     */
    @FXML
     private void handleAnadirJuego() {
         String nombre = nombreJuegoField.getText();
@@ -120,6 +135,9 @@ public class AddGameController {
         }
     }
 
+    /**
+     * Clears all the fields in the form after successfully adding the game.
+     */
     private void limpiarCampos() {
         nombreJuegoField.clear();
         descripcionArea.clear();
@@ -128,6 +146,10 @@ public class AddGameController {
         fecha.clear();
         trailer.clear();
     }
+
+    /**
+     * Handles conditional navigation based on the logged-in user's role (admin or regular user).
+     */
     @FXML
     private void navegacionCondicional(){
         UsuarioSingleton usuarioSingleton = new UsuarioSingleton();
@@ -138,6 +160,9 @@ public class AddGameController {
         }
     }
 
+    /**
+     * Navigates to the main page for regular users.
+     */
     private void navigateToInicio(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("inicioV.fxml"));
@@ -152,6 +177,9 @@ public class AddGameController {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
         }
     }
+    /**
+     * Navigates to the admin's main page.
+     */
     private void navigateToInicioAdm(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("inicioADMV.fxml"));
@@ -166,12 +194,21 @@ public class AddGameController {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
         }
     }
-
+    /**
+     * Closes the current window.
+     */
     private void closeWindow() {
         Stage stage = (Stage) btnAnadir.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Shows an alert with the specified type, title, and content.
+     *
+     * @param alertType The type of the alert (e.g., ERROR, INFORMATION).
+     * @param title The title of the alert.
+     * @param content The content message of the alert.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
