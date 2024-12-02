@@ -1,0 +1,79 @@
+/* Fondo de la pantalla */
+.anchor-pane {
+    -fx-background-color: linear-gradient(to bottom, #ffb552, #ffa43a);
+}
+
+/* Estilo para la tabla de videojuegos */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 2);
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+/* Cabecera de la tabla */
+.table-view .column-header {
+    -fx-background-color: #ffa43a;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: #ff9900;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10 5;
+}
+
+/* Celdas de la tabla */
+.table-view .cell {
+    -fx-background-color: white;
+    -fx-padding: 1 0;
+    -fx-font-size: 13px;
+    -fx-text-fill: #555;
+}
+
+.table-view .cell:focused {
+    -fx-background-color: #ffe4b3;
+}
+
+/* Botón de añadir */
+#btnAnadir {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 3, 0, 0, 2);
+}
+
+#btnAnadir:hover {
+    -fx-background-color: #45a049;
+}
+
+/* Botón de volver */
+#btnVolver {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 3, 0, 0, 2);
+}
+
+#btnVolver:hover {
+    -fx-background-color: #1976D2;
+}
+
+/* Imagen de usuario */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 5, 0, 0, 3);
+    -fx-cursor: hand;
+}
+
+/* Etiqueta de texto principal */
+.label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}

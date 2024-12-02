@@ -1,0 +1,73 @@
+/* Estilo general para el AnchorPane */
+AnchorPane {
+    -fx-background-color: #ffb552; /* Fondo naranja */
+}
+
+/* Estilo para el Label que muestra el texto principal */
+Label {
+    -fx-font-size: 16px; /* Tamaño de fuente por defecto */
+    -fx-font-family: "Arial";
+    -fx-text-fill: #333333; /* Color del texto */
+    -fx-font-weight: bold; /* Negrita */
+}
+
+/* Estilo para el TextField */
+TextField {
+    -fx-font-size: 14px; /* Tamaño de fuente del TextField */
+    -fx-background-color: #ffffff; /* Fondo blanco */
+    -fx-border-color: #cccccc; /* Borde gris */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-padding: 5px; /* Espaciado interno */
+}
+
+/* Estilo para el Button "Añadir" */
+Button#btnAdd {
+    -fx-background-color: #4CAF50; /* Fondo verde */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-background-radius: 5px; /* Bordes redondeados */
+    -fx-padding: 10px; /* Relleno del botón */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* Estilo para el Button "Volver" */
+Button#btnVolver {
+    -fx-background-color: #2196F3; /* Fondo azul */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-background-radius: 5px; /* Bordes redondeados */
+    -fx-padding: 10px; /* Relleno del botón */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* Estilo para el TableView */
+TableView {
+    -fx-background-color: #ffffff; /* Fondo blanco */
+    -fx-border-color: #cccccc; /* Borde gris */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-font-size: 14px; /* Tamaño de fuente */
+}
+
+/* Estilo para las TableColumns */
+TableColumn {
+    -fx-text-fill: #333333; /* Color de texto */
+    -fx-font-size: 14px; /* Tamaño de la fuente */
+    -fx-font-weight: bold; /* Negrita */
+}
+
+/* Estilo para el Text de "nombre" */
+Text {
+    -fx-font-size: 12px;
+    -fx-fill: #888888; /* Color gris */
+}
+
+/* Estilo para el ImageView (ícono de eliminar) */
+ImageView {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 3); /* Sombra suave */
+}
+
+/* Estilo de Hover para los botones */
+Button:hover {
+    -fx-opacity: 0.9; /* Efecto de opacidad al pasar el ratón */
+    -fx-cursor: hand; /* Cambio del cursor */
+}

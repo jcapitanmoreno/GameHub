@@ -190,6 +190,22 @@ public class InicioAdmController extends Controller implements Initializable {
         }
     }
 
+    @FXML
+    private void navigateToAddPlataformaToGame(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("addPlataformToGame.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("LogIn");
+            stage.setScene(new Scene(root));
+            stage.show();
+            closeWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
+        }
+    }
+
     private void closeWindow() {
         Stage stage = (Stage) btnAnadir.getScene().getWindow();
         stage.close();

@@ -4,11 +4,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="882.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.PerfilUsuarioController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="882.0" style="-fx-background-color: #ffb552;" stylesheets="@ArchivosCSS/StylesPerfilUsuario.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.PerfilUsuarioController">
    <children>
-      <TableView fx:id="videojuegosTable" layoutX="141.0" layoutY="115.0" prefHeight="358.0" prefWidth="598.0">
+      <TableView fx:id="videojuegosTable" layoutX="132.0" layoutY="115.0" prefHeight="358.0" prefWidth="618.0">
          <columns>
             <TableColumn fx:id="tituloColumn" prefWidth="111.20001220703125" text="Titulo" />
             <TableColumn fx:id="generoColumn" prefWidth="114.39994812011719" text="Genero" />
@@ -20,7 +22,12 @@
       <Button fx:id="btnVolver" layoutX="393.0" layoutY="509.0" onMouseClicked="#navigateToLogIn" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="volver" />
       <Label layoutX="136.0" layoutY="57.0" text="Nombre de Usuario:" />
       <Label layoutX="510.0" layoutY="57.0" text="Correo Electronico:" />
-      <Label fx:id="lblUsuario" layoutX="269.0" layoutY="57.0" text="Label 1" />
-      <Label fx:id="lblCorreo" layoutX="631.0" layoutY="57.0" text="Label 2" />
+      <Label fx:id="lblUsuario" layoutX="298.0" layoutY="57.0" text="Label 1" />
+      <Label fx:id="lblCorreo" layoutX="662.0" layoutY="57.0" text="Label 2" />
+      <ImageView fx:id="imgDeleteVideojuego" fitHeight="83.0" fitWidth="86.0" layoutX="33.0" layoutY="487.0" onMouseClicked="#deleteSelectedVideojuego" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@IMG/EpDelete.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

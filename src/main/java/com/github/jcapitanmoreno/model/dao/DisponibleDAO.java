@@ -45,6 +45,16 @@ public class DisponibleDAO {
         return disponible;
     }
 
+    public Disponible saveNew(Disponible disponible) throws SQLException {
+        try (PreparedStatement statement = ConnectionXamp.getConnection().prepareStatement(INSERT)) {
+            statement.setInt(1, disponible.getVideojuego().getId()); // ID del videojuego
+            statement.setInt(2, disponible.getPlataforma().get(0).getId()); // ID de la plataforma
+            statement.setString(3, disponible.getFechaLanzamiento()); // Fecha de lanzamiento
+            statement.executeUpdate();
+        }
+        return disponible;
+    }
+
     public List<Disponible> findAll() throws SQLException {
         List<Disponible> disponibles = new ArrayList<>();
         try (PreparedStatement statement = ConnectionXamp.getConnection().prepareStatement(SELECT_ALL);

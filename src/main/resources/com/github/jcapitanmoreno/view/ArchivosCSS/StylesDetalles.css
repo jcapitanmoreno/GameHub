@@ -1,0 +1,42 @@
+/* Estilo general para el AnchorPane */
+AnchorPane {
+    -fx-background-color: #ffb552; /* Fondo naranja */
+}
+
+/* Estilo para el VBox */
+VBox {
+    -fx-alignment: center; /* Centra los elementos */
+    -fx-spacing: 10px; /* Espaciado entre elementos */
+}
+
+/* Título principal */
+Label {
+    -fx-font-size: 14px; /* Tamaño de fuente por defecto */
+    -fx-font-family: "Arial"; /* Fuente por defecto */
+    -fx-text-fill: #333333; /* Color del texto */
+}
+
+Label[style*="-fx-font-size: 16;"] {
+    -fx-font-size: 20px; /* Tamaño mayor para el título */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-text-fill: #ffffff; /* Texto blanco para el título */
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.3) , 2,0,0,1 ); /* Sombra suave */
+}
+
+/* Estilo para los Labels de información */
+Label {
+    -fx-padding: 5px 0;
+}
+
+Label:focused {
+    -fx-background-color: transparent;
+    -fx-text-fill: #colorhighlightnoewlime;
+}
+/* GridPane */
+GridPane {
+    -fx-hgap: 10px; /* Espaciado horizontal */
+    -fx-vgap: 10px; /* Espaciado vertical */
+    -fx-padding: 10px; /* Espaciado interno */
+}
+
+.gridPane. .etc

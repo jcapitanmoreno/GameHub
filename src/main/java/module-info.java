@@ -4,6 +4,7 @@ module com.github.jcapitanmoreno {
     requires java.sql;
     requires java.xml.bind;
     requires java.desktop;
+    requires org.checkerframework.checker.qual;
 
     opens com.github.jcapitanmoreno.view to javafx.fxml;
     exports com.github.jcapitanmoreno.view;

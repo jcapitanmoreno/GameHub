@@ -11,7 +11,7 @@ import java.util.List;
 public class VideojuegosDAO {
     private final static String INSERT = "INSERT INTO videojuegos (nombre, descripcion, enlaceTrailer, idGenero, idUsuarios) VALUES (?, ?, ?, ?, ?)";
     private final static String UPDATE = "UPDATE videojuegos SET nombre = ?, descripcion = ?, enlaceTrailer = ?, idGenero = ?, idUsuarios = ? WHERE id = ?";
-    private final static String DELETE = "DELETE FROM videojuegos WHERE id = ?";
+    private final static String DELETE = "DELETE FROM videojuegos WHERE nombre = ?";
     private final static String SELECT_ALL = "SELECT v.id, v.nombre, v.descripcion, v.enlaceTrailer, g.nombre AS genero_nombre," +
             "u.usuario AS usuario_nombre, u.correo AS usuario_correo " +
             "FROM videojuegos v" +
@@ -214,11 +214,11 @@ public class VideojuegosDAO {
     }
 
     public Videojuegos delete(Videojuegos videojuego) throws SQLException {
-        if (videojuego == null || videojuego.getId() == 0) {
+        if (videojuego == null || videojuego.getNombre() == "") {
             return null;
         } else {
             try (PreparedStatement statement = ConnectionXamp.getConnection().prepareStatement(DELETE)) {
-                statement.setInt(1, videojuego.getId());
+                statement.setString(1, videojuego.getNombre());
                 statement.executeUpdate();
             }
         }

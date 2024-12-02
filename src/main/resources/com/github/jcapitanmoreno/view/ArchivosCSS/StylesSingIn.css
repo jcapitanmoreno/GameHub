@@ -1,0 +1,90 @@
+/* Estilo general del fondo */
+.anchor-pane {
+    -fx-background-color: linear-gradient(to bottom, #ffb552, #ffa43a);
+}
+
+/* Estilo para los campos de texto */
+.text-field, .password-field {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5;
+    -fx-padding: 5 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: #555;
+}
+
+/* Placeholder text para los campos de texto */
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #ff9900;
+}
+
+/* Estilo para las etiquetas de texto */
+.text {
+    -fx-font-size: 14px;
+    -fx-fill: #333;
+    -fx-font-family: "Arial", sans-serif;
+}
+
+/* Estilo del título */
+.label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+/* Botón general */
+.button {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 3, 0, 0, 2);
+}
+
+/* Botón de acceder */
+#accederButton {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-border-color: #3e8e41;
+}
+
+#accederButton:hover {
+    -fx-background-color: #45a049;
+}
+
+/* Botón de volver */
+#volverButton {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-border-color: #1976D2;
+}
+
+#volverButton:hover {
+    -fx-background-color: #1976D2;
+}
+
+/* CheckBox estilo */
+.check-box {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+    -fx-cursor: hand;
+}
+
+.check-box:hover {
+    -fx-text-fill: #ff7700;
+}
+
+/* Campo de clave admin (PasswordField) */
+#claveAdminField {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5;
+    -fx-font-size: 14px;
+    -fx-padding: 5 10;
+}
+
+#claveAdminField:focused {
+    -fx-border-color: #ff9900;
+}

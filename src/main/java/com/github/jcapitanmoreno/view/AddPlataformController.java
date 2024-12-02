@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -55,12 +56,12 @@ public class AddPlataformController extends Controller implements Initializable 
 
         plataformaList = FXCollections.observableArrayList();
 
-
         plataformaId.setCellValueFactory(cellData -> {
             Plataformas plataformas = cellData.getValue();
             int id = plataformas.getId();
             return new SimpleObjectProperty<>(id);
         });
+
 
         colPlataforma.setCellValueFactory(cellData -> {
             Plataformas plataformas = cellData.getValue();
@@ -68,13 +69,28 @@ public class AddPlataformController extends Controller implements Initializable 
             return new SimpleObjectProperty<>(name);
         });
 
-        tblPlataforma.setItems(plataformaList);
 
+        colPlataforma.setCellFactory(TextFieldTableCell.forTableColumn());
+        colPlataforma.setOnEditCommit(event -> {
+
+            Plataformas plataformaEditada = event.getRowValue();
+            plataformaEditada.setNombre(event.getNewValue());
+
+
+            try {
+                plataformaDAO.save(plataformaEditada);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                errorAlert("Error", "No se pudo actualizar la plataforma", e.getMessage());
+            }
+        });
+
+        tblPlataforma.setItems(plataformaList);
 
         try {
             loadPlataformas();
         } catch (SQLException e) {
-            errorAlert("Error", "No se pudieron cargar los géneros", e.getMessage());
+            errorAlert("Error", "No se pudieron cargar las plataformas", e.getMessage());
         }
 
     }
@@ -91,14 +107,9 @@ public class AddPlataformController extends Controller implements Initializable 
             warningAlert("Advertencia", "Campo vacío", "Por favor, introduce un nombre para el género.");
             return;
         }
-
         Plataformas nuevaPlataforma = new Plataformas(0, nombrePlataforma);
         PlataformaDAO.save(nuevaPlataforma);
-
-
         loadPlataformas();
-
-
         txtPlataforma.clear();
     }
 

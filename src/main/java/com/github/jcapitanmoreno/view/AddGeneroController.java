@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -43,16 +44,19 @@ public class AddGeneroController extends Controller implements Initializable {
     @FXML
     private ImageView imgDeleteGenero;
 
+
+
     private ObservableList<Genero> generoList;
 
     GeneroDAO generoDAO;
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         generoDAO = new GeneroDAO();
         generoList = FXCollections.observableArrayList();
         tblGenero.setEditable(true);
-
 
         colGeneroId.setCellValueFactory(cellData -> {
             Genero genero = cellData.getValue();
@@ -67,8 +71,21 @@ public class AddGeneroController extends Controller implements Initializable {
         });
 
 
-        tblGenero.setItems(generoList);
+        colGenero.setCellFactory(TextFieldTableCell.forTableColumn());
+        colGenero.setOnEditCommit(event -> {
 
+            Genero generoEditado = event.getRowValue();
+            generoEditado.setNombre(event.getNewValue());
+
+            try {
+                generoDAO.save(generoEditado);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                errorAlert("Error", "No se pudo actualizar el género", e.getMessage());
+            }
+        });
+
+        tblGenero.setItems(generoList);
 
         try {
             loadGeneros();
@@ -77,10 +94,14 @@ public class AddGeneroController extends Controller implements Initializable {
         }
     }
 
+
+
     private void loadGeneros() throws SQLException {
         List<Genero> generos = generoDAO.findAll();
         generoList.setAll(generos);
     }
+
+
 
     @FXML
     private void addGenero() throws SQLException {

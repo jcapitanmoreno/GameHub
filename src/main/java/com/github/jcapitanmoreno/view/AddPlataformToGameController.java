@@ -1,6 +1,9 @@
 package com.github.jcapitanmoreno.view;
 
+import com.github.jcapitanmoreno.model.dao.DisponibleDAO;
+import com.github.jcapitanmoreno.model.dao.PlataformaDAO;
 import com.github.jcapitanmoreno.model.dao.VideojuegosDAO;
+import com.github.jcapitanmoreno.model.entity.Disponible;
 import com.github.jcapitanmoreno.model.entity.Plataformas;
 import com.github.jcapitanmoreno.model.entity.Videojuegos;
 import javafx.beans.property.SimpleStringProperty;
@@ -46,10 +49,16 @@ public class AddPlataformToGameController extends Controller implements Initiali
     private Button btnVolver;
 
     @FXML
+    private Button btnAgregar;
+
+    @FXML
     private ComboBox cbJuego;
 
     @FXML
     private ComboBox cbPlataforma;
+
+    @FXML
+    private TextField txtfecha;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -109,6 +118,64 @@ public class AddPlataformToGameController extends Controller implements Initiali
                 }
             }
         });
+
+        try {
+
+            videojuegosDAO = new VideojuegosDAO();
+            List<Videojuegos> videojuegosList = videojuegosDAO.getAllData();
+            cbJuego.setItems(FXCollections.observableArrayList(videojuegosList));
+
+            // Cargar plataformas en el ComboBox
+            PlataformaDAO plataformasDAO = new PlataformaDAO();
+            List<Plataformas> plataformasList = plataformasDAO.findAll();
+            cbPlataforma.setItems(FXCollections.observableArrayList(plataformasList));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los datos.");
+        }
+    }
+
+    @FXML
+    private void handleAddPlatform() {
+        try {
+
+            Videojuegos selectedGame = (Videojuegos) cbJuego.getSelectionModel().getSelectedItem();
+            Plataformas selectedPlatform = (Plataformas) cbPlataforma.getSelectionModel().getSelectedItem();
+            String releaseDate = txtfecha.getText();
+
+
+            if (selectedGame == null || selectedPlatform == null || releaseDate.isEmpty()) {
+                showAlert(Alert.AlertType.WARNING, "Campos Vacíos", "Por favor, completa todos los campos.");
+                return;
+            }
+
+
+            Disponible disponible = new Disponible(selectedGame, List.of(selectedPlatform), releaseDate);
+
+
+            DisponibleDAO disponibleDAO = new DisponibleDAO();
+            disponibleDAO.saveNew(disponible);
+
+
+            showAlert(Alert.AlertType.INFORMATION, "Éxito", "Plataforma añadida exitosamente.");
+
+            refreshTable();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Hubo un problema al añadir la plataforma.");
+        }
+    }
+
+    private void refreshTable() {
+        try {
+            VideojuegosDAO videojuegosDAO = new VideojuegosDAO();
+            List<Videojuegos> updatedVideojuegos = videojuegosDAO.getAllData();
+            ObservableList<Videojuegos> observableVideojuegos = FXCollections.observableArrayList(updatedVideojuegos);
+            videojuegosTable.setItems(observableVideojuegos);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo actualizar la tabla.");
+        }
     }
 
     private void openDetailsModal(Videojuegos videojuego) {
@@ -136,6 +203,27 @@ public class AddPlataformToGameController extends Controller implements Initiali
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void navigateToInicioADM(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("inicioADMV.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("LogIn");
+            stage.setScene(new Scene(root));
+            stage.show();
+            closeWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
+        }
+    }
+
+    private void closeWindow() {
+        Stage stage = (Stage) btnVolver.getScene().getWindow();
+        stage.close();
     }
 
     @Override

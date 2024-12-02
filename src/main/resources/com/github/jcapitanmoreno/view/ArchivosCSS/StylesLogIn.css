@@ -1,0 +1,92 @@
+/* Estilo general del fondo con degradado */
+.anchor-pane {
+    -fx-background-color: linear-gradient(to bottom, #ffb552, #ffa43a); /* Degradado suave entre colores */
+}
+
+/* Estilo para los campos de texto */
+.text-field, .password-field {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 10px; /* Bordes más redondeados */
+    -fx-padding: 10px; /* Más espacio interno */
+    -fx-font-size: 16px; /* Fuente más grande */
+    -fx-text-fill: #555;
+    -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
+}
+
+/* Placeholder text para los campos de texto */
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #ff9900; /* Color de borde en foco */
+    -fx-box-shadow: 0 0 10px rgba(255, 153, 0, 0.7); /* Resplandor al foco */
+}
+
+/* Estilo para las etiquetas de texto */
+.text {
+    -fx-font-size: 16px; /* Tamaño de texto aumentado */
+    -fx-fill: #333; /* Texto oscuro para buena legibilidad */
+    -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Estilo del título principal */
+.label {
+    -fx-font-size: 32px; /* Título más grande */
+    -fx-font-weight: bold;
+    -fx-text-fill: #333; /* Color oscuro */
+    -fx-font-family: 'Arial Black', Arial, sans-serif; /* Fuente negrita */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 3); /* Sombra suave */
+}
+
+/* Estilo de los botones generales */
+.button {
+    -fx-font-size: 16px; /* Aumentar tamaño de la fuente */
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 3); /* Sombra para profundidad */
+    -fx-padding: 15px 30px; /* Botones con más relleno */
+}
+
+/* Botón de iniciar sesión */
+#btnIniciarSesion {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-color: #3e8e41;
+    -fx-font-size: 16px;
+}
+
+#btnIniciarSesion:hover {
+    -fx-background-color: #45a049; /* Color más oscuro al pasar el ratón */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 6, 0, 0, 5); /* Sombra fuerte al hacer hover */
+}
+
+/* Botón de registrarse */
+#btnRegistrarse {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-border-color: #1976D2;
+    -fx-font-size: 16px;
+}
+
+#btnRegistrarse:hover {
+    -fx-background-color: #1976D2;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 6, 0, 0, 5); /* Sombra fuerte al hacer hover */
+}
+
+/* Estilo para las etiquetas informativas */
+.label:hover {
+    -fx-text-fill: #ff7700; /* Cambio de color al pasar el ratón */
+}
+
+/* Estilo para los iconos y botones de imagen */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0, 0, 4); /* Sombra para iconos */
+    -fx-opacity: 0.9;
+}
+
+.image-view:hover {
+    -fx-opacity: 1; /* Efecto de hover */
+}
+
+/* Efectos de transición */
+.button, .image-view {
+    -fx-transition: all 0.3s ease-in-out; /* Transición suave para botones e iconos */
+}

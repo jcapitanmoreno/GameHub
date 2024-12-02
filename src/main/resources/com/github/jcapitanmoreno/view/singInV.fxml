@@ -8,18 +8,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="809.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.SingInController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="809.0" style="-fx-background-color: #ffb552;" stylesheets="@ArchivosCSS/StylesSingIn.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.SingInController">
    <children>
       <TextField fx:id="usuarioField" layoutX="278.0" layoutY="124.0" prefHeight="41.0" prefWidth="255.0" promptText="Ususario" />
       <PasswordField fx:id="contrasenaField" layoutX="278.0" layoutY="286.0" prefHeight="41.0" prefWidth="255.0" promptText="Contraseña" />
       <Text layoutX="278.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña:" />
       <Text layoutX="278.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario:" />
       <Label layoutX="384.0" layoutY="52.0" text="Registro" />
-      <Label layoutX="248.0" layoutY="364.0" text="si eres administrador marca esta casilla" />
+      <Label layoutX="207.0" layoutY="366.0" text="si eres administrador marca esta casilla" />
       <Button fx:id="accederButton" layoutX="666.0" layoutY="460.0" onAction="#handleAccederButton" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Acceder" />
       <TextField fx:id="correoField" layoutX="278.0" layoutY="208.0" prefHeight="41.0" prefWidth="255.0" promptText="Correo" />
       <Text layoutX="278.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo Electronico" />
-      <CheckBox fx:id="isAdminCheckBox" layoutX="470.0" layoutY="364.0" mnemonicParsing="false" text="soy admin" />
+      <CheckBox fx:id="isAdminCheckBox" layoutX="480.0" layoutY="364.0" mnemonicParsing="false" text="soy admin" />
       <PasswordField fx:id="claveAdminField" layoutX="278.0" layoutY="398.0" onAction="#initialize" prefHeight="41.0" prefWidth="255.0" promptText="Clave ADM" />
       <Button fx:id="volverButton" layoutX="50.0" layoutY="460.0" onAction="#handleVolverButton" onDragDetected="#handleVolverButton" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Volver" />
    </children>

@@ -2,11 +2,9 @@ package com.github.jcapitanmoreno.model.dao;
 
 import com.github.jcapitanmoreno.model.connection.ConnectionXamp;
 import com.github.jcapitanmoreno.model.entity.Plataformas;
+import org.checkerframework.checker.units.qual.C;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +88,10 @@ public class PlataformaDAO {
                 resultSet.getInt("id"),
                 resultSet.getString("nombre")
         );
+    }
+
+    public static PlataformaDAO build() {
+        return new PlataformaDAO();
     }
 
 }

@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -51,6 +52,9 @@ public class PerfilUsuarioController extends Controller implements Initializable
 
     @FXML
     private Label lblCorreo;
+
+    @FXML
+    private ImageView imgDeleteVideojuego;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -172,6 +176,29 @@ public class PerfilUsuarioController extends Controller implements Initializable
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de detalles.");
         }
     }
+
+    @FXML
+    private void deleteSelectedVideojuego() {
+
+        Videojuegos selectedVideojuego = videojuegosTable.getSelectionModel().getSelectedItem();
+        if (selectedVideojuego != null) {
+            try {
+
+                VideojuegosDAO videojuegosDAO = new VideojuegosDAO();
+                videojuegosDAO.delete(selectedVideojuego);
+
+                videojuegosTable.getItems().remove(selectedVideojuego);
+                showAlert(Alert.AlertType.INFORMATION, "Éxito", "El videojuego se eliminó correctamente.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error", "No se pudo eliminar el videojuego.");
+            }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Advertencia", "Seleccione un videojuego para eliminar.");
+        }
+    }
+
+
 
 
     @Override

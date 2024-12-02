@@ -1,0 +1,79 @@
+/* Fondo de la pantalla */
+.anchor-pane {
+    -fx-background-color: linear-gradient(to bottom, #ffb552, #ffa43a);
+}
+
+/* Estilo para la tabla */
+.table-view {
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+    -fx-background-color: white;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #444;
+    -fx-border-color: #f0f0f0;
+}
+
+/* Botones principales */
+.button {
+    -fx-background-radius: 5;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2);
+}
+
+/* Botón "Añadir juego" y "Añadir género" */
+#btnAnadir, #btnAddGenero {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+#btnAnadir:hover, #btnAddGenero:hover {
+    -fx-background-color: #45a049;
+}
+
+/* Botón "Añadir plataforma" */
+#btnAddPlataforma {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+}
+
+#btnAddPlataforma:hover {
+    -fx-background-color: #1976D2;
+}
+
+/* Botón "Volver" */
+#btnVolver {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+}
+
+#btnVolver:hover {
+    -fx-background-color: #d32f2f;
+}
+
+/* Estilo para las etiquetas */
+.label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-alignment: center;
+}
+
+/* Imagen de eliminar */
+.image-view {
+    -fx-cursor: hand;
+    -fx-opacity: 0.8;
+}
+
+.image-view:hover {
+    -fx-opacity: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 4, 0.3, 0, 2);
+}
