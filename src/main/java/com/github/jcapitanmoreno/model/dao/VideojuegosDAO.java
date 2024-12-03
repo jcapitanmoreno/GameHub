@@ -30,7 +30,7 @@ public class VideojuegosDAO {
     private final static String INSERT_FULL = "INSERT INTO videojuegos (nombre, descripcion, enlaceTrailer, idGenero, idUsuarios) VALUES (?, ?, ?, ?, ?)";
     private final static String INSERT_DISPONIBLE = "INSERT INTO disponible (idVideojuego, idPlataforma, fechaLanzamiento) VALUES (?, ?, ?)";
 
-    private final static String GET_DATA = "SELECT v.nombre AS titulo, v.descripcion AS descripcion, v.enlaceTrailer AS enlaceTrailer, " +
+    private final static String GET_DATA = "SELECT v.nombre AS titulo, v.descripcion AS descripcion, v.enlaceTrailer AS enlaceTrailer, v.id AS id, " +
             "g.nombre AS genero, " +
             "p.nombre AS plataforma, " +
             "d.fechaLanzamiento AS fecha, " +
@@ -53,6 +53,30 @@ public class VideojuegosDAO {
             "JOIN plataformas p ON d.idPlataforma = p.id " +
             "WHERE u.usuario = ?";
 
+    private final static String SELECT_GAME_BY_NAME = "SELECT * FROM videojuegos WHERE nombre = ?";
+
+    /**
+     * Retrieves a video game by its name from the database.
+     *
+     * @param name The name of the video game to retrieve.
+     * @return The {@code Videojuegos} entity with the given name, or {@code null} if not found.
+     * @throws SQLException If an error occurs during the database operation.
+     */
+    public Videojuegos selectGameByName(String name) throws SQLException {
+        try (Connection conn = ConnectionXamp.getConnection();
+             PreparedStatement statement = conn.prepareStatement(SELECT_GAME_BY_NAME)) {
+            statement.setString(1, name);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    // Map the result set to a Videojuegos object
+                    return mapResultSetToVideojuego(resultSet);
+                }
+            }
+        }
+        return null; // Return null if no game with the given name is found
+    }
+
     /**
      * Retrieves all video games related to the currently logged-in user.
      *
@@ -63,7 +87,6 @@ public class VideojuegosDAO {
         List<Videojuegos> videojuegos = new ArrayList<>();
         Connection conn = ConnectionXamp.getConnection();
 
-        // Obtener el usuario logueado desde UsuarioSingleton
         Usuarios usuarioLogueado = UsuarioSingleton.get_Instance().getPlayerLoged();
         if (usuarioLogueado == null) {
             throw new IllegalStateException("No hay un usuario logueado.");
@@ -127,6 +150,7 @@ public class VideojuegosDAO {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
+                int id = resultSet.getInt("id");
                 String titulo = resultSet.getString("titulo");
                 String genero = resultSet.getString("genero");
                 String plataforma = resultSet.getString("plataforma");
@@ -139,6 +163,7 @@ public class VideojuegosDAO {
                 videojuego.setNombre(titulo);
                 videojuego.setDescripcion(descripcion);
                 videojuego.setEnlaceTrailer(enlace);
+                videojuego.setId(id);
 
                 Genero generoObj = new Genero();
                 generoObj.setNombre(genero);
@@ -209,12 +234,12 @@ public class VideojuegosDAO {
      * This method inserts the video game into the "videojuegos" table and
      * the availability information into the "disponible" table.
      *
-     * @param nombre The name of the video game.
-     * @param descripcion A description of the video game.
-     * @param enlace A URL link to the trailer of the video game.
-     * @param idGenero The ID of the genre associated with the video game.
-     * @param idUsuario The ID of the user who added the video game.
-     * @param idPlataforma The ID of the platform where the video game is available.
+     * @param nombre           The name of the video game.
+     * @param descripcion      A description of the video game.
+     * @param enlace           A URL link to the trailer of the video game.
+     * @param idGenero         The ID of the genre associated with the video game.
+     * @param idUsuario        The ID of the user who added the video game.
+     * @param idPlataforma     The ID of the platform where the video game is available.
      * @param fechaLanzamiento The release date of the video game.
      * @throws SQLException If an error occurs during the database operations.
      */

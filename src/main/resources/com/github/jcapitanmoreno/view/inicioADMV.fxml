@@ -29,5 +29,10 @@
             <Image url="@IMG/EpDelete.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="imgAddPlataforToGame" fitHeight="157.0" fitWidth="54.0" layoutX="799.0" layoutY="33.0" onMouseClicked="#navigateToAddPlataformaToGame" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@IMG/WhhGameboy.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

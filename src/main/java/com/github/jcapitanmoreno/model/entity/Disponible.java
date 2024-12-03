@@ -12,12 +12,6 @@ public class Disponible {
     public Disponible() {
     }
 
-    public Disponible(Videojuegos videojuego, ArrayList<Plataformas> plataforma, String fechaLanzamiento) {
-        this.videojuego = videojuego;
-        this.plataforma = plataforma;
-        this.fechaLanzamiento = fechaLanzamiento;
-    }
-
     public Disponible(Videojuegos videojuego, List<Plataformas> plataforma, String fechaLanzamiento) {
         this.videojuego = videojuego;
         this.plataforma = plataforma;

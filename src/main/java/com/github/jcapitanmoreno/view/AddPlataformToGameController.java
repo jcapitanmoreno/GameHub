@@ -123,9 +123,8 @@ public class AddPlataformToGameController extends Controller implements Initiali
 
             videojuegosDAO = new VideojuegosDAO();
             List<Videojuegos> videojuegosList = videojuegosDAO.getAllData();
-            cbJuego.setItems(FXCollections.observableArrayList(videojuegosList));
+            cbJuego.setItems(FXCollections.observableList(videojuegosList));
 
-            // Cargar plataformas en el ComboBox
             PlataformaDAO plataformasDAO = new PlataformaDAO();
             List<Plataformas> plataformasList = plataformasDAO.findAll();
             cbPlataforma.setItems(FXCollections.observableArrayList(plataformasList));
