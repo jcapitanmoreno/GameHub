@@ -49,7 +49,7 @@ public class HelpController {
 
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-                return new javax.mail.PasswordAuthentication("ayudagamehub@gmail.com", "gamehub_1234");
+                return new javax.mail.PasswordAuthentication("ayudagamehub@gmail.com", "ffnt odps fuqc tnbj");
             }
         });
 
