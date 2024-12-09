@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -59,6 +60,9 @@ public class AddPlataformToGameController extends Controller implements Initiali
 
     @FXML
     private TextField txtfecha;
+
+    List<Videojuegos> videojuegosList;
+    List<Plataformas> plataformasList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -122,12 +126,20 @@ public class AddPlataformToGameController extends Controller implements Initiali
         try {
 
             videojuegosDAO = new VideojuegosDAO();
-            List<Videojuegos> videojuegosList = videojuegosDAO.getAllData();
-            cbJuego.setItems(FXCollections.observableList(videojuegosList));
+            videojuegosList = videojuegosDAO.getAllData();
+            List<String> videonames = new ArrayList<>();
+            for (Videojuegos v : videojuegosList){
+                videonames.add(v.getNombre());
+            }
+            cbJuego.setItems(FXCollections.observableList(videonames));
 
             PlataformaDAO plataformasDAO = new PlataformaDAO();
-            List<Plataformas> plataformasList = plataformasDAO.findAll();
-            cbPlataforma.setItems(FXCollections.observableArrayList(plataformasList));
+            plataformasList = plataformasDAO.findAll();
+            List<String> plataformasname = new ArrayList<>();
+            for (Plataformas p : plataformasList){
+                plataformasname.add(p.getNombre());
+            }
+            cbPlataforma.setItems(FXCollections.observableArrayList(plataformasname));
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron cargar los datos.");
@@ -137,9 +149,24 @@ public class AddPlataformToGameController extends Controller implements Initiali
     @FXML
     private void handleAddPlatform() {
         try {
+            String videoname = cbJuego.getSelectionModel().getSelectedItem().toString();
+            Videojuegos selectedGame = new Videojuegos();
+            for (Videojuegos v : videojuegosList){
+                if (v.getNombre().equals(videoname)){
+                    selectedGame = v;
+                    break;
+                }
+            }
 
-            Videojuegos selectedGame = (Videojuegos) cbJuego.getSelectionModel().getSelectedItem();
-            Plataformas selectedPlatform = (Plataformas) cbPlataforma.getSelectionModel().getSelectedItem();
+            String plataformname = cbPlataforma.getSelectionModel().getSelectedItem().toString();
+            Plataformas selectedPlatform = new Plataformas();
+            for (Plataformas p : plataformasList){
+                if (p.getNombre().equals(plataformname)){
+                    selectedPlatform = p;
+                    break;
+                }
+            }
+
             String releaseDate = txtfecha.getText();
 
 

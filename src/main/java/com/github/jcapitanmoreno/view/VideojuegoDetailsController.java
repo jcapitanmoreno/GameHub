@@ -3,10 +3,13 @@ package com.github.jcapitanmoreno.view;
 import com.github.jcapitanmoreno.model.entity.Videojuegos;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -36,7 +39,7 @@ public class VideojuegoDetailsController extends Controller implements Initializ
     private Label lblDescripcion;
 
     @FXML
-    private Label lblEnlace;
+    private Hyperlink hlEnlace;
 
 
     /**
@@ -64,10 +67,30 @@ public class VideojuegoDetailsController extends Controller implements Initializ
                         ? videojuego.getDescripcion()
                         : "Sin descripción disponible."
         );
-        lblEnlace.setText( videojuego.getEnlaceTrailer() != null && !videojuego.getEnlaceTrailer().isEmpty()
-                ? videojuego.getEnlaceTrailer()
-                : "sin enlace disponible");
 
+        String enlaceTrailer = videojuego.getEnlaceTrailer();
+        hlEnlace.setText(enlaceTrailer != null && !enlaceTrailer.isEmpty()
+                ? enlaceTrailer
+                : "sin enlace disponible");
+        hlEnlace.setOnAction(event -> openLink(enlaceTrailer));
+
+    }
+
+    /**
+     * Abre el enlace en el navegador predeterminado.
+     * @param url El enlace a abrir.
+     */
+    private void openLink(String url) {
+        if (url != null && !url.isEmpty()) {
+            try {
+                URI uri = new URI(url);
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().browse(uri);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

@@ -60,6 +60,9 @@ public class InicioController extends Controller implements Initializable {
     @FXML
     private ImageView userImageView;
 
+    @FXML
+    private ImageView helpImageView;
+
     /**
      * Initializes the controller by loading the video games list from the database,
      * binding the data to the table, and setting up the table columns.
@@ -184,6 +187,26 @@ public class InicioController extends Controller implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
         }
     }
+
+    /**
+     * Navigates to the user profile screen.
+     */
+    @FXML
+    private void navigateToHelp(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("HelpV.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("LogIn");
+            stage.setScene(new Scene(root));
+            stage.show();
+            closeWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista");
+        }
+    }
+
 
     /**
      * Closes the current window (stage).

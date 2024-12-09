@@ -55,6 +55,8 @@ public class VideojuegosDAO {
 
     private final static String SELECT_GAME_BY_NAME = "SELECT * FROM videojuegos WHERE nombre = ?";
 
+
+
     /**
      * Retrieves a video game by its name from the database.
      *
@@ -62,19 +64,18 @@ public class VideojuegosDAO {
      * @return The {@code Videojuegos} entity with the given name, or {@code null} if not found.
      * @throws SQLException If an error occurs during the database operation.
      */
-    public Videojuegos selectGameByName(String name) throws SQLException {
+    public Videojuegos findGameByName(String name) throws SQLException {
         try (Connection conn = ConnectionXamp.getConnection();
              PreparedStatement statement = conn.prepareStatement(SELECT_GAME_BY_NAME)) {
             statement.setString(1, name);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    // Map the result set to a Videojuegos object
                     return mapResultSetToVideojuego(resultSet);
                 }
             }
         }
-        return null; // Return null if no game with the given name is found
+        return null;
     }
 
     /**

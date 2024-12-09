@@ -170,6 +170,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        txtUsuario.setText("hola");
+        txtContrasena.setText("Hola_1234*");
     }
 }

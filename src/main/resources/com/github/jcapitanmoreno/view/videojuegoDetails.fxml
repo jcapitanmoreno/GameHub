@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="304.0" prefWidth="374.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.VideojuegoDetailsController">
+<AnchorPane prefHeight="304.0" prefWidth="374.0" style="-fx-background-color: #ffb552;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.jcapitanmoreno.view.VideojuegoDetailsController">
     <children>
         <VBox alignment="CENTER" prefHeight="382.0" prefWidth="632.0" spacing="10" stylesheets="@ArchivosCSS/StylesDetalles.css">
             <Label style="-fx-font-size: 16; -fx-font-weight: bold;" text="Detalles del Videojuego" />
@@ -30,8 +31,9 @@
                 <Label text="Descripción:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
                 <Label fx:id="lblDescripcion" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="5" />
             <Label text="Enlace" GridPane.rowIndex="7" />
-            <Label fx:id="lblEnlace" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <Hyperlink fx:id="hlEnlace" text="Hyperlink" GridPane.columnIndex="4" GridPane.rowIndex="7" />
             <columnConstraints>
+               <ColumnConstraints />
                <ColumnConstraints />
                <ColumnConstraints />
                <ColumnConstraints />

@@ -5,6 +5,7 @@ module com.github.jcapitanmoreno {
     requires java.xml.bind;
     requires java.desktop;
     requires org.checkerframework.checker.qual;
+    requires java.mail;
 
     opens com.github.jcapitanmoreno.view to javafx.fxml;
     exports com.github.jcapitanmoreno.view;

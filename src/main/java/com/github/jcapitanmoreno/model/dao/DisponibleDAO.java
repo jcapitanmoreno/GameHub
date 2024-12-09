@@ -74,11 +74,9 @@ public class DisponibleDAO {
      */
     public Disponible saveNew(Disponible disponible) throws SQLException {
         try (PreparedStatement statement = ConnectionXamp.getConnection().prepareStatement(INSERT)) {
-            statement.setInt(1, disponible.getVideojuego().getId()); // ID del videojuego
-            statement.setInt(2, disponible.getPlataforma().get(0).getId()); // ID de la plataforma
-            System.out.println(disponible.getVideojuego().getId());
-            System.out.println(disponible.getPlataforma().get(0).getId());
-            statement.setString(3, disponible.getFechaLanzamiento()); // Fecha de lanzamiento
+            statement.setInt(1, disponible.getVideojuego().getId());
+            statement.setInt(2, disponible.getPlataforma().get(0).getId());
+            statement.setString(3, disponible.getFechaLanzamiento());
             statement.executeUpdate();
         }
         return disponible;
