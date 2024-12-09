@@ -146,6 +146,10 @@ public class AddPlataformToGameController extends Controller implements Initiali
         }
     }
 
+    /**
+     * Handles the addition of a new platform to a game.
+     * Validates inputs, creates a new Disponible entity, and saves it to the database.
+     */
     @FXML
     private void handleAddPlatform() {
         try {
@@ -192,6 +196,9 @@ public class AddPlataformToGameController extends Controller implements Initiali
         }
     }
 
+    /**
+     * Refreshes the video games table by reloading data from the database.
+     */
     private void refreshTable() {
         try {
             VideojuegosDAO videojuegosDAO = new VideojuegosDAO();
@@ -204,6 +211,9 @@ public class AddPlataformToGameController extends Controller implements Initiali
         }
     }
 
+    /**
+     * Opens a modal to display details of the selected video game.
+     */
     private void openDetailsModal(Videojuegos videojuego) {
         try {
 
@@ -224,6 +234,9 @@ public class AddPlataformToGameController extends Controller implements Initiali
         }
     }
 
+    /**
+     * Displays an alert dialog.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -231,6 +244,10 @@ public class AddPlataformToGameController extends Controller implements Initiali
         alert.showAndWait();
     }
 
+
+    /**
+     * Navigates back to the admin's home screen.
+     */
     @FXML
     private void navigateToInicioADM(){
         try {
@@ -247,6 +264,10 @@ public class AddPlataformToGameController extends Controller implements Initiali
         }
     }
 
+
+    /**
+     * Closes the current window.
+     */
     private void closeWindow() {
         Stage stage = (Stage) btnVolver.getScene().getWindow();
         stage.close();
@@ -276,6 +297,4 @@ public class AddPlataformToGameController extends Controller implements Initiali
     public void warningAlert(String text1, String text2, String text3) {
 
     }
-
-
 }

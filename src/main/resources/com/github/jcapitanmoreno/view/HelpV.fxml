@@ -14,6 +14,7 @@
       <TextArea fx:id="descripcionTextArea" layoutX="150.0" layoutY="260.0" prefHeight="200.0" prefWidth="565.0" />
       <Text layoutX="150.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Asunto" />
       <Text layoutX="150.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción" />
-      <Button fx:id="enviarButton" layoutX="720.0" layoutY="514.0" onMouseClicked="#enviarCorreo" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Enviar" />
+      <Button fx:id="enviarButton" layoutX="667.0" layoutY="515.0" onMouseClicked="#enviarCorreo" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="Enviar" />
+      <Button fx:id="volver" layoutX="102.0" layoutY="513.0" onMouseClicked="#navigateToInicio" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10;" text="volver" />
    </children>
 </AnchorPane>
