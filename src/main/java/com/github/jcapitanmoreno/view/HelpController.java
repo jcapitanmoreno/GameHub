@@ -74,7 +74,7 @@ public class HelpController {
 
 
             Transport.send(message);
-            System.out.println("Mensaje enviado exitosamente....");
+            showAlert(Alert.AlertType.INFORMATION, "Completado", "mensaje enviado correctamente");
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }

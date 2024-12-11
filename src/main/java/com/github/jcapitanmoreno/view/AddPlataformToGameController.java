@@ -158,7 +158,6 @@ public class AddPlataformToGameController extends Controller implements Initiali
             for (Videojuegos v : videojuegosList){
                 if (v.getNombre().equals(videoname)){
                     selectedGame = v;
-                    break;
                 }
             }
 
@@ -167,7 +166,6 @@ public class AddPlataformToGameController extends Controller implements Initiali
             for (Plataformas p : plataformasList){
                 if (p.getNombre().equals(plataformname)){
                     selectedPlatform = p;
-                    break;
                 }
             }
 
